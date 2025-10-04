@@ -1,0 +1,1677 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>NESARA & GESARA</title>
+  <meta name="description" content="One‑page landing for a NESARA & GESARA card product." />
+<style>
+/* =========================================================
+   NESARA & GESARA — Gold/Navy Theme (soft gold sky via #skyTint)
+   ========================================================= */
+
+/* ================ 0) ROOT & BASE ======================== */
+:root{
+  --bg:#0b0d12;
+  --panel:#121621;
+  --panel-2:#0f1320;
+  --text:#e8ecf4;
+  --muted:#9aa3b2;
+  --primary:#d4af37;
+  --primary-2:#f1d26a;
+  --border:#1f2432;
+  --success:#3ad29f;
+
+  --navy:#0b0d12;
+  --gold-1:#f5d37a;
+  --gold-2:#d7a93a;
+  --gold-3:#b9862c;
+  --ring:#2a3b55;
+
+  --faq-gold: rgba(255,215,0,.38);
+  --faq-border: rgba(255,255,255,.10);
+
+  --gold-glow: rgba(241,210,106,.35);
+  --gold-soft: rgba(212,175,55,.22);
+
+  --radius:16px;
+  --radius-xl:28px;
+  --shadow:0 12px 40px rgba(0,0,0,.35);
+  --shadow-xl:0 18px 60px rgba(0,0,0,.45);
+
+  /* === Controls for gold tint strength === */
+  --gold-intensity: .18; /* .10–.24 looks good */
+  --gold-a1: .14;        /* core glow alpha */
+  --gold-a2: .04;        /* wide soft glow alpha */
+}
+
+*{ box-sizing:border-box; }
+html,body{ height:100%; }
+
+body{
+  margin:0;
+  font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
+  line-height:1.6;
+  color:var(--text);
+  --text-rgb:232,236,244;
+  background:#070b14;           /* само базна нијанса тука */
+  position:relative;
+  overflow-x:hidden;
+}
+
+/* ЕДЕН глобален бекграунд слој — фиксно зад целата страница */
+body::before{
+  content:"";
+  position:fixed;
+  inset:0;
+  z-index:-3;                    /* под #bg и #skyTint */
+  pointer-events:none;
+  background:
+    radial-gradient(1200px 600px at 80% -50%, #0e1422 0%, transparent 60%),
+    radial-gradient(900px 500px at -20% 0%,  #0a1020 0%, transparent 60%),
+    #070b14;
+  background-repeat:no-repeat;
+  background-position:center;
+  background-size:cover;
+}
+
+
+a{ color:var(--primary); }
+.wrap{ max-width:1120px; margin:0 auto; padding:20px; }
+
+/* ================ 10) BACKGROUND LAYERS ================= */
+#bg{
+  position:fixed; inset:0;
+  width:100vw; height:100vh;
+  z-index:-2; pointer-events:none; display:block;
+}
+
+/* Soft gold tint above canvas, below content */
+#skyTint{
+  position: fixed; inset: 0; z-index: -1;
+  pointer-events: none;
+  opacity: 0;                         /* toggled via body.sky--gold */
+  transition: opacity .35s ease;
+  background:
+    radial-gradient(1100px 700px at 50% 30%,
+      rgba(241,210,106,var(--gold-a1)),
+      rgba(212,175,55,calc(var(--gold-a1)*.6)) 40%,
+      rgba(185,134,44,calc(var(--gold-a1)*.35)) 66%,
+      rgba(0,0,0,0) 100%),
+    radial-gradient(180vw 120vh at 50% 10%,
+      rgba(255,215,0,var(--gold-a2)),
+      rgba(0,0,0,0) 70%);
+  mix-blend-mode: soft-light;
+  filter: brightness(.95);
+}
+body.sky--gold #skyTint{ opacity: var(--gold-intensity); }
+body.sky--gold #bg{
+  filter: sepia(.25) saturate(1.15) hue-rotate(6deg) brightness(1.03);
+}
+@media (prefers-reduced-motion: reduce){
+  #skyTint{ transition: none; }
+}
+
+/* ================ 1) LAYOUT & HEADER ==================== */
+header{
+  position:sticky; top:0; z-index:10;
+  backdrop-filter:saturate(180%) blur(10px);
+  background:rgba(11,13,18,.6);
+  border-bottom:1px solid var(--border);
+}
+.nav{ display:flex; align-items:center; justify-content:space-between; padding:12px 0; }
+.brand{ display:flex; gap:10px; align-items:center; }
+.logo{
+  width:36px; height:36px; border-radius:8px;
+  background:linear-gradient(135deg,var(--primary),var(--primary-2));
+  box-shadow:inset 0 0 30px rgba(255,255,255,.2);
+}
+.brand h1{ margin:0; font-size:18px; }
+
+/* ================ 2) BUTTONS ============================ */
+.btn{
+  display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
+  padding:14px 22px;
+  border-radius: var(--radius);
+  font-weight:800; letter-spacing:.3px;
+  text-decoration:none; border:0;
+  transition: transform .12s ease, box-shadow .2s ease, filter .2s ease, background .3s ease;
+  will-change: transform, filter;
+  box-shadow: var(--shadow);
+}
+.btn-lg{ padding:16px 28px; font-size: clamp(14px, 1.2vw, 18px); }
+.btn-block{ width:100%; }
+
+.btn-gold{
+  color:#0b0d12;
+  background: linear-gradient(180deg, var(--primary-2), var(--primary));
+  border: 1px solid rgba(0,0,0,.25);
+  text-align:center;
+  box-shadow: 0 12px 34px rgba(212,175,55,.26);
+  position:relative; overflow:hidden;
+}
+.btn-gold:hover{ transform: translateY(-1px); filter: brightness(1.03) saturate(1.05); box-shadow: 0 14px 42px rgba(212,175,55,.30); }
+.btn-gold:active{ transform: translateY(0); filter: brightness(.98); }
+.btn-gold:focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 0 0 5px rgba(241,210,106,.55);
+  border-color: rgba(0,0,0,.45);
+}
+.btn-gold.btn-shine::before{
+  content:""; position:absolute; inset:0; transform: translateX(-120%);
+  background: linear-gradient(75deg, transparent 0%, rgba(255,255,255,.18) 35%, rgba(255,255,255,.02) 60%, transparent 100%);
+}
+.btn-gold:hover.btn-shine::before{ animation: shine 900ms ease; }
+@keyframes shine{ to{ transform: translateX(120%); } }
+
+/* ===== HERO CTA — компактни стилови (само ова копче) ===== */
+
+/* 1) Компактно SOLID златно (default) */
+.btn-gold.hero-cta{
+  border-radius: 12px;
+  padding: 12px 18px;
+  font-size: clamp(13px, 1vw, 16px);
+  letter-spacing:.2px;
+  color:#0b0d12;
+  background: linear-gradient(180deg, var(--primary-2), var(--primary));
+  border: 1px solid rgba(0,0,0,.35);
+  box-shadow: 0 6px 18px rgba(212,175,55,.18);
+  transition: transform .12s ease, filter .2s ease, box-shadow .2s ease, background .3s ease;
+  overflow: hidden; /* за shine ефектот подолу */
+}
+.btn-gold.hero-cta:hover{
+  transform: translateY(-1px);
+  filter: brightness(1.03) saturate(1.05);
+  box-shadow: 0 10px 26px rgba(212,175,55,.22);
+}
+.btn-gold.hero-cta:active{ transform: translateY(0); filter: brightness(.98); }
+.btn-gold.hero-cta:focus-visible{
+  outline:none;
+  box-shadow: 0 0 0 3px rgba(0,0,0,.45), 0 0 0 5px rgba(241,210,106,.45);
+}
+
+/* Посуптилен shine (остануваш со .btn-shine класата) */
+.btn-gold.hero-cta.btn-shine::before{
+  content:"";
+  position:absolute; inset:-30% -10%;
+  transform: translateX(-140%) rotate(8deg);
+  background: linear-gradient(75deg, transparent 0%, rgba(255,255,255,.28) 20%, rgba(255,255,255,.06) 36%, transparent 52%);
+}
+.btn-gold.hero-cta.btn-shine:hover::before{ animation: shine 800ms ease; }
+@keyframes shine{ to{ transform: translateX(140%) rotate(8deg); } }
+
+/* 2) OUTLINE варијанта (додај .is-outline на истото копче) */
+.btn-gold.hero-cta.is-outline{
+  background: transparent;
+  color: var(--primary-2);
+  border: 1.5px solid currentColor;
+  box-shadow: none;
+}
+.btn-gold.hero-cta.is-outline:hover{
+  background: linear-gradient(180deg, rgba(241,210,106,.12), rgba(212,175,55,.14));
+  transform: translateY(-1px);
+}
+
+/* 3) GHOST (минимално, темна позадина со златен раб) */
+.btn-gold.hero-cta.is-ghost{
+  background: #0f1320;
+  color: var(--primary-2);
+  border: 1px solid rgba(241,210,106,.45);
+  box-shadow: none;
+}
+.btn-gold.hero-cta.is-ghost:hover{
+  background: #121621;
+  transform: translateY(-1px);
+}
+
+/* Smooth scroll */
+html { scroll-behavior: smooth; }
+
+/* Колку да остави простор под хедер (смени ако треба) */
+:root { --header-h: 72px; }
+
+/* Без преголем offset – чисто „легнување“ на почетокот на #offer */
+#offer { scroll-margin-top: calc(var(--header-h, 72px) + 8px); }
+
+
+/* ================ 3) HERO =============================== */
+.hero-grid{ display:block; }
+.hero--center .hero-content{
+  max-width:1100px; margin-inline:auto;
+  display:flex; flex-direction:column; align-items:center; text-align:center;
+  gap: clamp(16px, 2.8vh, 34px);
+  margin-top: var(--hero-offset, 14vh);
+}
+.wrap.hero{ padding-bottom: calc(12vh + var(--hero-bleed, 18vh)); }
+
+.badge{
+  display:inline-flex; gap:8px; align-items:center;
+  padding:6px 12px; border-radius:999px;
+  background:rgba(212,175,55,.12);
+  border:1px solid rgba(212,175,55,.35);
+  font-size:12px; letter-spacing:.4px; color:var(--primary);
+}
+
+.hero-title{
+  margin:0; line-height:.92; letter-spacing:.6px;
+  font-weight:900; color:var(--text);
+  font-size: clamp(52px, 10vw, 140px);
+  text-shadow: 0 2px 0 rgba(0,0,0,.25), 0 10px 30px rgba(0,0,0,.35);
+}
+.hero-title .accent{
+  display:inline-block;
+  background: linear-gradient(180deg, var(--gold-1), var(--gold-2) 60%, var(--gold-3));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow: 0 2px 0 rgba(0,0,0,.25), 0 18px 40px rgba(215,169,58,.25);
+}
+
+.hero-subtitle{ margin:0; letter-spacing:.2px; }
+.hero-subtitle--xl{ color:var(--text); font-weight:800; font-size:clamp(22px, 2.8vw, 34px); }
+.hero-subtitle--lg{ color: rgba(var(--text-rgb), .88); font-weight:700; font-size:clamp(20px, 2.2vw, 28px); }
+.hero-subtitle--md{ color: rgba(var(--text-rgb), .72); font-weight:600; font-size:clamp(18px, 1.8vw, 22px); }
+.hero-subtitle + .hero-subtitle{ margin-top: clamp(8px, 1.6vh, 16px); }
+
+.hero{
+  position: relative; isolation: isolate; overflow: visible; display: flow-root; 
+  --hero-bleed: 18vh; --hero-offset: 14vh;
+}
+.hero::before{
+  content:"";
+  position:absolute;
+  top:0;
+  bottom: calc(var(--hero-bleed) * -1);
+  left:50%;
+  width:100vw;
+  transform:translateX(-50%);
+  z-index:-1;
+
+  /* слика + многу суптилен затемнувачки слој */
+  background-image:
+    linear-gradient(180deg,
+      rgba(7,11,20,.45) 0%,
+      rgba(7,11,20,.25) 50%,
+      rgba(7,11,20,0)   85%
+    ),
+    var(--hero);
+  background-size:cover;
+  background-position:center 40%;
+  background-repeat:no-repeat;
+
+  filter: contrast(1.04) saturate(1.06);
+  pointer-events:none;
+
+  /* клучното — мазен fade надолу */
+  -webkit-mask-image: linear-gradient(to bottom, #000 60%, rgba(0,0,0,0) 95%);
+          mask-image: linear-gradient(to bottom, #000 60%, rgba(0,0,0,0) 95%);
+}
+
+
+@media (max-width: 900px){
+  .hero{ --hero-bleed: 100vh; --hero-offset: 10vh; }
+  .hero::before{
+    background-image: linear-gradient(180deg, rgba(7,11,20,.62), rgba(7,11,20,.72)), var(--hero);
+    background-position: center 30%;
+  }
+}
+
+/* ================ 4) CARDS & PROSE ===================== */
+.card{
+  background:linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  border:1px solid var(--border);
+  border-radius:var(--radius);
+  box-shadow:var(--shadow);
+}
+.card-inner{ padding:20px; }
+
+.notice{
+  display:flex; gap:10px; align-items:flex-start;
+  background:rgba(255,255,255,.04);
+  border:1px solid var(--border);
+  border-radius:12px; padding:12px 14px; color:#cbd3e3;
+}
+.notice strong{ color:#fff; }
+
+.prose{ color:#cbd3e3; }
+.prose p{ margin:0 0 12px; }
+.prose p:last-child{ margin-bottom:0; }
+
+/* ================ 5) OFFER SECTION ===================== */
+.section{ padding:56px 0; margin-top: 25vh; background: transparent !important }
+.section h2{ margin:0 0 8px; font-size:28px; }
+.section p.lead{ margin:0 0 18px; }
+
+.offer-hero{
+  display:grid;
+  grid-template-columns: 1fr 1fr;
+  gap:24px; align-items:center;
+}
+
+/* Media (left column) */
+.offer-media{ position:relative; }
+.offer-media .badge-off{
+  position:absolute; top:10px; left:10px; z-index:2;
+  background: linear-gradient(180deg, var(--primary-2), var(--primary));
+  color:#0b0d12; font-weight:800;
+  border-radius:999px; padding:10px 14px; font-size:12px;
+  border:1px solid rgba(0,0,0,.28);
+  box-shadow:0 10px 26px rgba(212,175,55,.28);
+}
+.offer-figure{
+  width:min(460px, 100%);
+  aspect-ratio:817 / 1228;
+  border-radius:18px; overflow:hidden;
+  background:linear-gradient(180deg,#151922,#0f1320);
+  border:1px solid rgba(255,255,255,.06);
+  box-shadow:0 20px 60px rgba(0,0,0,.45);
+  position:relative;
+}
+.offer-figure::after{
+  content:""; position:absolute; inset:0;
+  background:radial-gradient(600px 200px at 30% -10%, rgba(255,255,255,.12), transparent 60%);
+  pointer-events:none;
+}
+.offer-figure img{ width:100%; height:100%; object-fit:cover; display:block; }
+
+/* Futuristic Offer Panel */
+.offer-panel{
+  position: relative;
+  background: linear-gradient(180deg, rgba(17,21,33,.65), rgba(12,16,28,.55));
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  padding: 20px;
+  box-shadow: var(--shadow-xl);
+  overflow: hidden;
+  isolation: isolate;
+  backdrop-filter: blur(6px);
+}
+.offer-panel::before{
+  content:""; position:absolute; inset: -1px;
+  border-radius: inherit; padding: 1px;
+  background: linear-gradient(120deg, rgba(212,175,55,.35), rgba(241,210,106,.15) 35%, rgba(212,175,55,.35) 70%, rgba(241,210,106,.10));
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  animation: borderFlow 6s linear infinite;
+  pointer-events:none; z-index:-1;
+}
+@keyframes borderFlow{ 0%{ filter:hue-rotate(0deg) } 100%{ filter:hue-rotate(360deg) } }
+.offer-panel::after{
+  content:""; position:absolute; inset:0;
+  background:
+    radial-gradient(600px 220px at 70% -10%, rgba(245,211,122,.14), transparent 60%),
+    radial-gradient(480px 180px at 10% 105%, rgba(183,138,44,.12), transparent 60%),
+    repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 30px),
+    repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 24px);
+  opacity:.7; pointer-events:none; z-index:-2;
+}
+
+.offer-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
+.title-future{
+  margin:0; letter-spacing:.4px;
+  background: linear-gradient(180deg, #fff, rgba(var(--text-rgb), .86));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow: 0 1px 0 rgba(0,0,0,.35);
+}
+.holo-badge{
+  display:inline-flex; align-items:center; gap:.4rem;
+  padding:8px 12px; font-size:12px; font-weight:800; letter-spacing:.3px;
+  border-radius:999px; color:#0b0d12;
+  background: linear-gradient(120deg, var(--primary-2), var(--primary) 60%, #cfb060);
+  box-shadow: 0 10px 26px rgba(212,175,55,.28);
+  border: 1px solid rgba(0,0,0,.28);
+}
+
+.lead-future{ margin: 6px 0 14px; color: rgba(var(--text-rgb), .92); position:relative; }
+.lead-future::after{
+  content:""; position:absolute; left:0; bottom:-6px; width:64px; height:2px;
+  background: linear-gradient(90deg, var(--primary-2), transparent); border-radius:2px; opacity:.85;
+}
+
+.price-box{
+  max-width:360px; margin:18px auto;
+  background:linear-gradient(180deg,#151922,#0f1320);
+  border:1px solid rgba(241,210,106,.16);
+  border-radius:18px; padding:22px;
+  box-shadow:0 18px 50px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
+}
+.price-box-future{
+  background: linear-gradient(180deg, #151922, #0f1320);
+  border: 1px solid rgba(241,210,106,.14);
+  border-radius: var(--radius);
+  padding:16px; display:grid; gap:12px;
+  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 28px rgba(0,0,0,.35);
+}
+.price-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+
+.pill{
+  display:inline-flex; align-items:center; gap:8px;
+  background: linear-gradient(180deg, var(--primary-2), var(--primary));
+  color:#0b0d12;
+  border:1px solid rgba(0,0,0,.28);
+  border-radius:999px;
+  padding:6px 12px; font-weight:700; font-size:12px;
+}
+.pill-ghost{
+  color: var(--primary-2);
+  background: rgba(241,210,106,.10);
+  border: 1px solid rgba(241,210,106,.25);
+  padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px;
+}
+
+.og{ color:#98a2b3; text-decoration:line-through; margin-right:10px; opacity:.9; }
+.big{ font-size:64px; font-weight:900; letter-spacing:.5px; }
+.big-glow{
+  font-size: clamp(28px, 4.5vw, 40px);
+  font-weight: 900; letter-spacing:.6px; color:#fff;
+  text-shadow: 0 0 18px rgba(241,210,106,.25), 0 0 38px rgba(212,175,55,.2);
+}
+.subt{ color:#cbd3e3; margin-top:6px; }
+.subt-future{ margin:0; color: var(--muted); }
+
+.rating{ display:flex; align-items:center; gap:10px; margin:10px 0 16px; }
+.stars{ color:#ffcf4a; letter-spacing:2px; }
+
+/* ================ 6) KPI & STATE CARDS ================= */
+.kpis-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
+.kpi{
+  background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
+  border:1px solid var(--border); border-radius:18px; padding:22px; box-shadow:var(--shadow);
+  display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+}
+.kpi .icon{
+  width:54px; height:54px; border-radius:16px; display:grid; place-items:center;
+  background:linear-gradient(180deg, #1f2a3e, #111827);
+  box-shadow:inset 0 0 0 2px rgba(212,175,55,.18);
+  border:1px solid rgba(255,255,255,.08);
+  margin-bottom:10px;
+}
+.kpi .icon svg{ width:26px; height:26px; }
+.kpi .value{ font-size:36px; font-weight:900; line-height:1; margin-top:6px; }
+.kpi .value.gold{
+  background:linear-gradient(180deg,var(--primary-2),var(--primary));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+}
+.kpi .value.emerald{ color:var(--success); }
+.kpi .label{ color:#c7cfdd; margin-top:8px; }
+.kpi .sub{ color:#9aa3b2; font-size:12px; margin-top:4px; }
+
+/* ================ 7) FAQ ================================ */
+.faq{ max-width:900px; }
+
+/* container */
+#faq details{
+  position:relative;
+  border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  border:1px solid var(--faq-border);
+  margin:10px 0;
+  overflow:clip;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+}
+
+/* gold glow on hover/open */
+#faq details:hover,
+#faq details[open]{
+  border-color: rgba(212,175,55,.45);
+  background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
+  box-shadow:
+    inset 0 0 0 1px var(--gold-soft),
+    0 0 22px var(--gold-soft),
+    0 0 56px rgba(212,175,55,.12);
+}
+#faq details::after{
+  content:""; position:absolute; inset:-2px; border-radius:inherit;
+  background:
+    radial-gradient(120% 70% at 50% -10%, var(--gold-glow), transparent 60%),
+    radial-gradient(80% 60% at 50% 120%, rgba(212,175,55,.18), transparent 60%);
+  filter: blur(10px);
+  opacity:0; pointer-events:none; transition: opacity .25s ease;
+}
+#faq details:hover::after,
+#faq details[open]::after{ opacity:1; }
+
+/* summary row */
+#faq summary{
+  list-style:none; cursor:pointer;
+  padding:14px 44px 14px 16px; position:relative; outline:none;
+  display:flex; align-items:center; justify-content:space-between;
+  font-weight:600;
+}
+#faq summary::-webkit-details-marker{ display:none; }
+#faq summary > span[aria-hidden]{
+  position:absolute; right:14px; top:50%;
+  transform:translateY(-50%); transition: transform .28s ease, opacity .28s ease, color .25s ease;
+  font-weight:900; opacity:.9;
+}
+#faq details[open] summary > span[aria-hidden]{ transform:translateY(-50%) rotate(0deg); opacity:1; color: var(--primary-2); }
+
+/* answer body (animated height handled by JS) */
+#faq .faq-body{
+  padding: 0 18px;        /* horizontal padding even when closed */
+  height: 0;
+  overflow: hidden;
+  transition: height .32s ease, opacity .28s ease, padding-top .2s ease, padding-bottom .2s ease;
+}
+#faq details:not([open]) .faq-body{ opacity: 0; }
+#faq details[open] .faq-body{ padding: 12px 18px 16px; }
+
+/* content tidy */
+#faq .faq-body > :first-child{ margin-top: 0; }
+#faq .faq-body > :last-child{  margin-bottom: 0; }
+#faq .faq-body ul{ padding-left: 1.15rem; margin: 8px 0 0; }
+#faq .faq-body li{ margin: 6px 0; }
+
+/* subtle divider when open */
+#faq details[open] summary{ box-shadow: inset 0 -1px 0 rgba(255,255,255,.08); }
+
+/* pulse ripple on click */
+#faq summary.pulse::before{
+  content:""; position:absolute;
+  left: calc(var(--mx, .5) * 100%); top: calc(var(--my, .5) * 100%);
+  transform: translate(-50%, -50%) scale(.4);
+  width:20px; height:20px; border-radius:999px;
+  background: radial-gradient(circle at center, var(--faq-gold), rgba(0,0,0,0) 60%);
+  filter: blur(6px);
+  animation: faq-pulse .45s ease-out forwards;
+  pointer-events:none;
+}
+@keyframes faq-pulse{ to{ opacity:0; transform: translate(-50%, -50%) scale(2.6); } }
+
+/* ================ 8) FOOTER ============================= */
+footer{
+  border-top:1px solid var(--border);
+  padding:24px 0;
+  color:var(--muted);
+  font-size:14px;
+}
+.foot-grid{
+  display:flex; flex-direction:column; align-items:center; justify-content:center;
+  gap:8px; text-align:center;
+}
+.foot-links{ margin-top:4px; }
+.foot-links.spaced{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+
+footer .foot-grid > div .muted:first-of-type { color:#4b5563; }
+footer .foot-grid > div .muted:nth-of-type(2){ color:#374151; }
+
+footer .muted{
+  --tw-text-opacity: 1;
+  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
+}
+
+/* ================ 9) UTILITIES ========================== */
+.grid{ display:grid; gap:16px; }
+.muted{ color:var(--muted); }
+.center{ text-align:center; }
+
+/* ================ 11) MEDIA QUERIES ===================== */
+@media (max-width: 900px){
+  .hero-grid{ grid-template-columns:1fr; }
+  .offer-hero{ grid-template-columns:1fr; }
+  .offer-figure{ margin-inline:auto; max-width:380px; }
+  .title{ font-size:34px; }
+  .big{ font-size:48px; }
+  .kpis-grid{ grid-template-columns:repeat(2,1fr); }
+  .states-grid{ grid-template-columns:repeat(2,1fr); }
+
+  :root{
+    --gold-intensity: .16;
+    --gold-a1: .12;
+    --gold-a2: .03;
+  }
+}
+
+/* ================ 12) A11Y ============================== */
+@media (prefers-reduced-motion: reduce){
+  #faq summary.pulse::before{ animation:none; display:none; }
+  #faq .faq-body{ transition:none !important; }
+}
+
+/* ===== Reveal on load ===== */
+.reveal-lines {
+  opacity: 0;
+  transform: translateY(14px);
+  filter: blur(6px);
+  transition:
+    opacity 1.3s cubic-bezier(.22,.61,.21,.99),
+    transform 1.3s cubic-bezier(.22,.61,.21,.99),
+    filter   1.3s cubic-bezier(.22,.61,.21,.99);
+  will-change: opacity, transform, filter;
+}
+.reveal-lines.is-visible { opacity: 1; transform: none; filter: none; }
+.hero-content { --reveal-delay: 180ms; --reveal-stagger: 300ms; }
+.hero-content .reveal-lines { transition-delay: calc(var(--reveal-delay, 0ms) + var(--reveal-stagger, 240ms) * var(--i, 0)); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal-lines { transition: none !important; }
+  .reveal-lines,
+  .reveal-lines.is-visible { opacity: 1 !important; transform: none !important; filter: none !important; }
+}
+noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
+/* ===== KPI cards — gold glow (matches FAQ style) ===== */
+.kpi{
+  position: relative;                         /* needed for the halo */
+  transition: border-color .25s ease,
+              box-shadow .25s ease,
+              background .25s ease,
+              transform .2s ease;
+  will-change: box-shadow, transform;
+}
+
+.kpi:hover,
+.kpi:focus-visible{
+  border-color: rgba(212,175,55,.45);
+  background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
+  box-shadow:
+    inset 0 0 0 1px var(--gold-soft),
+    0 0 22px var(--gold-soft),
+    0 0 56px rgba(212,175,55,.12);
+  transform: translateY(-2px);
+  outline: none;
+}
+
+/* Soft outer halo (same recipe as FAQ) */
+.kpi::after{
+  content:"";
+  position:absolute; inset:-2px; border-radius:inherit;
+  background:
+    radial-gradient(120% 70% at 50% -10%, var(--gold-glow), transparent 60%),
+    radial-gradient(80% 60% at 50% 120%, rgba(212,175,55,.18), transparent 60%);
+  filter: blur(10px);
+  opacity:0; pointer-events:none;
+  transition: opacity .25s ease;
+}
+.kpi:hover::after,
+.kpi:focus-visible::after{ opacity:1; }
+
+/* Keep icons/text feeling “lit” on hover */
+.kpi:hover .value,
+.kpi:focus-visible .value{
+  text-shadow: 0 0 12px rgba(241,210,106,.22), 0 0 28px rgba(212,175,55,.16);
+}
+.kpi:hover .icon,
+.kpi:focus-visible .icon{
+  box-shadow:
+    inset 0 0 0 2px rgba(212,175,55,.28),
+    0 6px 18px rgba(212,175,55,.14);
+}
+
+/* Optional: always-on glow for featured stats */
+.kpi.is-featured{
+  border-color: rgba(212,175,55,.45);
+  background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
+  box-shadow:
+    inset 0 0 0 1px var(--gold-soft),
+    0 0 22px var(--gold-soft),
+    0 0 56px rgba(212,175,55,.12);
+}
+.kpi.is-featured::after{ opacity:1; }
+
+/* Respect reduced motion */
+@media (prefers-reduced-motion: reduce){
+  .kpi,
+  .kpi::after{ transition:none; }
+  .kpi:hover,
+  .kpi:focus-visible{ transform:none; }
+}
+/* ================= MOBILE FIXES ================= */
+/* Replace your old 900px block with this */
+@media (max-width: 900px){
+  /* Layout */
+  .wrap{ padding:18px; background: transparent !important;}
+  .hero{ --hero-bleed: 12vh; --hero-offset: 10vh; }
+  .hero::before{
+    background-image: linear-gradient(180deg, rgba(7,11,20,.62), rgba(7,11,20,.74)), var(--hero);
+    background-position: center 30%;
+  }
+  .wrap.hero{ padding-bottom: calc(10vh + var(--hero-bleed)); }
+
+  /* Hero */
+  .hero-grid{ grid-template-columns:1fr; }
+  .hero--center .hero-content{ gap: clamp(14px, 2vh, 26px); }
+  .hero-title{ font-size: clamp(42px, 10.5vw, 96px); }
+  .hero-subtitle--xl{ font-size: clamp(20px, 3.5vw, 26px); }
+  .hero-subtitle--lg{ font-size: clamp(18px, 3.2vw, 22px); }
+  .hero-subtitle--md{ font-size: clamp(16px, 3vw, 20px); }
+  .hero-subtitle + .hero-subtitle{ margin-top: clamp(6px, 1.2vh, 12px); }
+
+  /* CTA button fills width nicely in hero */
+  .hero .btn.btn-lg{ width:50%; max-width:520px; }
+
+  /* Sections */
+  .section{ padding:44px 0; margin-top: 10vh; }
+  .section h2{ font-size: 24px; }
+
+  /* Offer */
+  .offer-hero{
+    grid-template-columns:1fr;
+    gap:18px;
+  }
+  /* Show text first, image second (swap if you prefer) */
+  .offer-media{ order:2; }
+  .offer-figure{
+    margin-inline:auto;
+    max-width:380px;
+  }
+  .offer-panel{ padding:16px; border-radius: 22px; }
+  .price-box{ margin:16px auto; padding:18px; }
+
+  /* KPI grid */
+  .kpis-grid{ grid-template-columns:repeat(2,1fr); gap:16px; }
+  .kpi{ padding:18px; }
+
+  /* FAQ */
+  #faq summary{ padding:16px 44px 16px 18px; }
+  #faq .faq-body{ padding: 0 18px; }
+  #faq details[open] .faq-body{ padding: 12px 18px 16px; }
+
+  /* Footer */
+  .title{ font-size:32px; }
+
+  /* Subtle gold intensity reduction on small screens */
+  :root{
+    --gold-intensity: .16;
+    --gold-a1: .12;
+    --gold-a2: .03;
+  }
+}
+
+/* Narrow phones */
+@media (max-width: 600px){
+  .wrap{ padding:16px; }
+
+  /* Hero scaling */
+  .hero{ --hero-bleed: 10vh; --hero-offset: 8vh; }
+  .hero-title{ font-size: clamp(36px, 12vw, 72px); }
+  .hero-subtitle--xl{ font-size: clamp(18px, 4.2vw, 22px); }
+  .hero-subtitle--lg{ font-size: clamp(16px, 4vw, 20px); }
+  .hero-subtitle--md{ font-size: clamp(15px, 3.8vw, 18px); }
+  .hero .btn.btn-lg{ padding:14px 18px; font-size: 15px; }
+
+  /* Offer visuals */
+  .offer-figure{ max-width:320px; }
+  .offer-media .badge-off{ padding:8px 12px; font-size:11px; }
+
+  /* KPI: single column for clarity */
+  .kpis-grid{ grid-template-columns:1fr; gap:14px; }
+  .kpi .value{ font-size:32px; }
+  .kpi .icon{ width:50px; height:50px; }
+
+  /* FAQ tap comfort */
+  #faq summary{ padding:16px 42px 16px 16px; }
+  #faq summary > span[aria-hidden]{ right:12px; }
+}
+
+/* Ultra-small devices / very tight layouts */
+@media (max-width: 380px){
+  :root{ --radius:12px; --radius-xl:20px; }
+
+  .badge{ padding:5px 10px; font-size:11px; }
+  .pill, .pill-ghost{ padding:5px 10px; font-size:11px; }
+
+  .offer-panel{ padding:14px; }
+  .price-box{ padding:16px; }
+  .offer-figure{ max-width:280px; }
+  .big{ font-size:42px; }
+
+  /* Tone down glows further so nothing blooms */
+  .big-glow{ text-shadow: 0 0 12px rgba(241,210,106,.18), 0 0 22px rgba(212,175,55,.14); }
+  .kpi:hover,
+  .kpi.is-featured{
+    box-shadow:
+      inset 0 0 0 1px rgba(212,175,55,.18),
+      0 0 16px rgba(212,175,55,.16);
+  }
+}
+
+
+</style>
+
+
+
+
+
+</head>
+<body>
+ <canvas id="bg" aria-hidden="true"></canvas>
+<div id="skyTint" aria-hidden="true"></div>
+<main class="wrap hero hero--center" style="--hero: url('usa-hero-flag.jpg');">
+  <div class="hero-content">
+    <h1 class="hero-title reveal-lines">
+      NESARA <span class="accent" data-keep>GESARA</span>
+    </h1>
+
+    <p class="hero-subtitle hero-subtitle--xl reveal-lines">
+      Begin your journey toward financial freedom today!
+    </p>
+
+    <p class="hero-subtitle hero-subtitle--md reveal-lines">
+      Get started now and build your path to independence with confidence!
+    </p>
+
+    <a href="#offer" class="btn btn-lg btn-gold btn-shine hero-cta">
+  Start Your Journey
+</a>
+
+  </div>
+</main>
+
+
+  <section id="offer-1" class="wrap section">
+    <div class="offer-hero">
+      <div class="offer-media">
+        <div class="badge-off">50% OFF!</div>
+        <figure class="offer-figure">
+  <!-- Set your file later -->
+      <img src="main.jpg"
+       alt="Offer visual"
+       width="817" height="1228"
+       loading="lazy" />
+        </figure>
+      </div>
+      <div class="offer-panel">
+  <div class="offer-head">
+    <h2 class="title title-future">STANDARD PACKAGE</h2>
+    <span class="holo-badge">50% OFF</span>
+  </div>
+
+  <p class="lead lead-future">Step into a better tomorrow—begin your success story today.</p>
+
+  <div class="price-box price-box-future">
+    <div class="price-row">
+      <div class="og">$1,999</div>
+      <span class="pill-ghost">Limited Time</span>
+    </div>
+
+    <div class="big big-glow">$999</div>
+    <p class="subt subt-future">Economy processing with standard delivery</p>
+
+
+    <a class="btn btn-gold btn-block btn-shine" href="#buy" aria-label="Buy now">
+      <span class="btn-label">Order Now</span>
+    </a>
+  </div>
+</div>
+
+    </div>
+    
+  </section>
+
+
+  <section id="offer-1" class="wrap section">
+    <div class="offer-hero">
+      <div class="offer-media">
+        <div class="badge-off">BEST DEAL!</div>
+        <figure class="offer-figure">
+  <!-- Set your file later -->
+      <img src="premium.png"
+       alt="Offer visual"
+       width="817" height="1228"
+       loading="lazy" />
+        </figure>
+      </div>
+      <div class="offer-panel">
+  <div class="offer-head">
+    <h2 class="title title-future">PREMIUM PACKAGE</h2>
+    <span class="holo-badge">50% OFF</span>
+  </div>
+
+  <p class="lead lead-future">Step into a better tomorrow—begin your success story today.</p>
+
+  <div class="price-box price-box-future">
+    <div class="price-row">
+      <div class="og">$5,999</div>
+      <span class="pill-ghost">Limited Time</span>
+    </div>
+
+    <div class="big big-glow">$2,999</div>
+    <p class="subt subt-future">Priority processing and faster delivery</p>
+
+    <a class="btn btn-gold btn-block btn-shine" href="#buy" aria-label="Buy now">
+      <span class="btn-label">Order Now</span>
+    </a>
+  </div>
+</div>
+
+    </div>
+    
+  </section>
+
+  <!-- KPIs -->
+  <section id="kpis" class="wrap section" data-sky="gold">
+    <h2>Key Metrics</h2>
+    <div class="kpis-grid">
+      <!-- Happy Customers -->
+      <div class="kpi">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f1d26a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 11a3 3 0 1 0-2.999-3A3 3 0 0 0 16 11Z"/>
+            <path d="M8 13a4 4 0 1 0-4-4" opacity=".6"/>
+            <path d="M2 21a6 6 0 0 1 12 0"/>
+            <path d="M14 21a6 6 0 0 1 8 0" opacity=".6"/>
+          </svg>
+        </div>
+        <div class="value gold">10,000+</div>
+        <div class="label">Happy Customers</div>
+      </div>
+
+      <!-- Total Savings Generated -->
+      <div class="kpi">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 12c3-4 7-6 9-6s6 2 9 6"/>
+            <path d="M4 16l4-4 4 4 4-4 4 4"/>
+            <path d="M12 3v18" opacity=".5"/>
+          </svg>
+        </div>
+        <div class="value gold">$2.5M+</div>
+        <div class="label">Total Savings Generated</div>
+      </div>
+
+      <!-- Success Rate -->
+      <div class="kpi">
+        <div class="icon" aria-hidden="true">
+          <svg viewBox="0 0 24 24" fill="none" stroke="#f1d26a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="9" stroke="#f1d26a"/>
+            <path d="M8.5 12.5l2.2 2.2 4.5-4.5"/>
+          </svg>
+        </div>
+        <div class="value gold">98%</div>
+        <div class="label">Success Rate</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="wrap section faq" data-sky="gold">
+  <h2>FAQ</h2>
+  <details>
+    <summary>
+      What is NESARA?
+      <span aria-hidden="true">➕</span>
+    </summary>
+    <div class="faq-body">
+      NESARA stands for the <em>National Economic Security and Recovery Act</em>, a set of reform proposals drafted in the 1990s by Harvey Francis Barnard. Key ideas included:
+      <ul>
+        <li>Abolishing compound interest on loans</li>
+        <li>Returning to a bimetallic (gold/silver) currency standard</li>
+        <li>Eliminating the federal income tax in favor of a national sales tax</li>
+      </ul>
+      Barnard self-published a book and sent it to Congress, but it was never introduced as law.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      What is GESARA?
+      <span aria-hidden="true">➕</span>
+    </summary>
+    <div class="faq-body">
+      GESARA stands for the <em>Global Economic Security and Reformation Act</em>. Supporters claim NESARA’s supposed reforms were expanded worldwide to create a global system of economic reset, debt forgiveness, and financial equality.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      How did NESARA turn into a conspiracy theory?
+      <span aria-hidden="true">➕</span>
+    </summary>
+    <div class="faq-body">
+      In the late 1990s and early 2000s, online communities promoted the idea that NESARA was secretly passed but suppressed by powerful interests. Shaini Goodwin (“Dove of Oneness”) became a prominent promoter, claiming:
+      <ul>
+        <li>NESARA was real but hidden</li>
+        <li>It would wipe out personal debts, end income tax, and redistribute wealth</li>
+        <li>“Dark forces” were blocking its implementation</li>
+      </ul>
+      These claims spread online and later intertwined with other narratives, including UFO and QAnon-adjacent themes.
+    </div>
+  </details>
+
+  <details>
+    <summary>
+      What do believers say NESARA/GESARA will do?
+      <span aria-hidden="true">➕</span>
+    </summary>
+    <div class="faq-body">
+      Followers often claim the acts would:
+      <ul>
+        <li>Cancel all debts (personal, national, and global)</li>
+        <li>Eliminate income tax and introduce a flat or sales tax</li>
+        <li>Release suppressed technologies (e.g., “free energy”)</li>
+        <li>End wars and establish world peace</li>
+        <li>Distribute wealth more equally worldwide</li>
+        <li>Reveal hidden truths about extraterrestrials and government corruption</li>
+      </ul>
+    </div>
+  </details>
+</section>
+
+
+  <!-- Footer -->
+  <footer>
+  <div class="wrap foot-grid center">
+    <div>
+      <strong>© 2025 NESARA & GESARA. All rights reserved.</strong><br />
+      <span class="muted">Your journey to financial independence starts now.</span><br />
+      <span class="muted">This e-book has no monetary value!</span>
+    </div>
+
+    <nav class="foot-links spaced">
+      <a href="#faq">FAQ</a> ·
+      <a href="#offer">Offer</a> ·
+      <a href="#compliance">Terms</a>
+    </nav>
+  </div>
+</footer> 
+</body>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+  // 0) Осигурај се дека #skyTint постои
+  if(!document.getElementById('skyTint')){
+    const d = document.createElement('div');
+    d.id = 'skyTint'; d.setAttribute('aria-hidden','true');
+    document.body.appendChild(d);
+  }
+  // 1) Палиме златно (додека не стигнеме до FAQ)
+  document.body.classList.add('sky--gold');
+
+  // 2) Ако имаш #faq, гаси пред него (можеш да го оставиш ова или твојата стара логика)
+  const faq = document.getElementById('faq');
+  if(faq){
+    const cutoff = () => faq.getBoundingClientRect().top + window.scrollY - 200;
+    const tick = () => {
+      if(window.scrollY >= cutoff()){
+        document.body.classList.remove('sky--gold');
+      }else{
+        document.body.classList.add('sky--gold');
+      }
+    };
+    window.addEventListener('scroll', ()=>requestAnimationFrame(tick), {passive:true});
+    window.addEventListener('resize', tick);
+    tick();
+  }
+});
+</script>
+
+<script>
+(function(){
+  const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+  /* ========= BOOT ========= */
+  window.addEventListener('DOMContentLoaded', function(){
+    document.body.classList.add('page-ready');
+
+    initStarfield();
+    initHeaderShadow();
+    initSmoothScroll();
+    initRevealGeneric();   // општ reveal (ги прескокнува .reveal-lines)
+    initKpiCountUp();
+    initButtons();
+    initOfferTilt();
+    initFaqAnimated();
+    initPolish();
+    initHeroReveal();      // бавен stagger за .reveal-lines (hero)
+    initSkyTint();         // золт “tint” управување преку data-sky
+    if(prefersReduced){ hardenReducedMotion(); }
+  });
+
+  /* ========= 1) STARFIELD CANVAS ========= */
+  function initStarfield(){
+    const c = document.getElementById('bg');
+    if(!c) return;
+    const ctx = c.getContext('2d');
+    let dpr = 1, w = 0, h = 0, stars = [], animId = null;
+
+    function rnd(min,max){ return Math.random()*(max-min)+min; }
+    function makeStars(){
+      const targetCount = Math.floor((window.innerWidth * window.innerHeight) / 12000);
+      const count = Math.min(Math.max(targetCount, 80), 220);
+      stars = Array.from({length: count}, () => ({
+        x: Math.random()*w,
+        y: Math.random()*h,
+        r: rnd(0.6, 1.8)*dpr,
+        s: rnd(0.1, 0.6),
+        a: rnd(0.35, 0.9)
+      }));
+    }
+    function resize(){
+      dpr = Math.max(1, Math.min(2, window.devicePixelRatio || 1));
+      w = c.width = Math.floor(window.innerWidth * dpr);
+      h = c.height = Math.floor(window.innerHeight * dpr);
+      c.style.width = window.innerWidth + 'px';
+      c.style.height = window.innerHeight + 'px';
+      makeStars();
+    }
+    function frame(){
+      ctx.clearRect(0,0,w,h);
+      ctx.globalCompositeOperation = 'lighter';
+      for(const s of stars){
+        ctx.globalAlpha = s.a;
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, Math.PI*2);
+        ctx.fillStyle = '#e8ecf4';
+        ctx.fill();
+        s.y -= s.s;
+        s.x += s.s*0.08;
+        if(s.y < -4 || s.x > w+4){
+          s.x = Math.random()*w;
+          s.y = h + 4;
+        }
+      }
+      animId = requestAnimationFrame(frame);
+    }
+    resize();
+    frame();
+    window.addEventListener('resize', ()=>{ cancelAnimationFrame(animId); resize(); frame(); }, {passive:true});
+  }
+
+  /* ========= 2) STICKY HEADER SHADOW ========= */
+  function initHeaderShadow(){
+    const header = document.querySelector('header');
+    if(!header) return;
+    const onScroll = () => {
+      const y = window.scrollY || document.documentElement.scrollTop;
+      header.style.boxShadow = y > 6 ? '0 6px 20px rgba(0,0,0,.35)' : 'none';
+      header.style.borderBottomColor = y > 6 ? 'rgba(255,255,255,.08)' : 'var(--border)';
+    };
+    onScroll();
+    window.addEventListener('scroll', onScroll, {passive:true});
+  }
+
+  /* ========= 3) SMOOTH ANCHOR SCROLLING ========= */
+  function initSmoothScroll(){
+    document.addEventListener('click', (e)=>{
+      const a = e.target.closest('a[href^="#"]');
+      if(!a) return;
+      const id = a.getAttribute('href');
+      if(id.length <= 1) return;
+      const el = document.querySelector(id);
+      if(!el) return;
+      e.preventDefault();
+      const top = el.getBoundingClientRect().top + window.pageYOffset - 12;
+      window.scrollTo({ top, behavior: 'smooth' });
+    });
+  }
+
+  /* ========= 4) GENERIC IN-VIEW REVEAL (СКОПЕН) =========
+     • Ги прескокнува .reveal-lines за да не се дуплира со hero reveal
+  */
+  function initRevealGeneric(){
+    const candidates = [
+      '.offer-hero', '.offer-figure', '.price-box',
+      '.kpi', '.state', '#faq details',
+      '.btn:not(.reveal-lines)', '.hero-subtitle:not(.reveal-lines)',
+      '.hero-title:not(.reveal-lines)'
+    ];
+    const els = document.querySelectorAll(candidates.join(','));
+    els.forEach(el => {
+      el.style.opacity = '0';
+      el.style.transform = 'translateY(16px)';
+      el.style.transition = 'opacity .6s ease, transform .6s ease, filter .6s ease';
+      el.style.filter = 'blur(2px)';
+    });
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(({isIntersecting, target})=>{
+        if(isIntersecting){
+          target.style.opacity = '1';
+          target.style.transform = 'none';
+          target.style.filter = 'none';
+          io.unobserve(target);
+        }
+      });
+    }, { threshold: 0.14 });
+    els.forEach(el => io.observe(el));
+  }
+
+  /* ========= 5) KPI COUNT-UP ========= */
+  function initKpiCountUp(){
+    const els = document.querySelectorAll('.kpi .value');
+    if(!els.length) return;
+
+    function parseValue(str){
+      const prefixMatch = str.match(/^[^\d]+/);
+      const suffixMatch = str.match(/[^\d]+$/);
+      const prefix = prefixMatch ? prefixMatch[0] : '';
+      const suffix = suffixMatch ? suffixMatch[0] : '';
+      const body = str.replace(/[^\d.]/g,'');
+      const mult = /M/i.test(str) ? 1_000_000 : /K/i.test(str) ? 1_000 : 1;
+      const target = parseFloat(body || '0') * mult;
+      return {prefix, suffix, target};
+    }
+    function fmt(n, origSuffix){
+      if(/%/.test(origSuffix)) return Math.round(n) + '%';
+      if(/M/i.test(origSuffix)) return (n/1_000_000).toFixed(1).replace(/\.0$/,'') + 'M';
+      if(/\+/.test(origSuffix)) return Math.round(n).toLocaleString() + '+';
+      if(/K/i.test(origSuffix)) return (n/1_000).toFixed(1).replace(/\.0$/,'') + 'K';
+      return Math.round(n).toLocaleString() + (origSuffix || '');
+    }
+
+    const items = [];
+    els.forEach(el=>{
+      const original = el.textContent.trim();
+      const {prefix, suffix, target} = parseValue(original);
+      items.push({el, prefix, suffix, target, original});
+      el.dataset.original = original;
+      el.textContent = prefix + (suffix.includes('%') ? '0%' : '0') + (suffix.includes('+') ? '+' : '');
+    });
+
+    const duration = prefersReduced ? 0 : 1200;
+    const ease = t => 1 - Math.pow(1 - t, 3);
+
+    const io = new IntersectionObserver((entries)=>{
+      entries.forEach(({isIntersecting, target})=>{
+        if(!isIntersecting) return;
+        const obj = items.find(i=>i.el===target);
+        if(!obj) return;
+        io.unobserve(target);
+
+        if(duration===0){ obj.el.textContent = obj.original; return; }
+
+        const t0 = performance.now();
+        function tick(now){
+          const p = Math.min(1, (now - t0)/duration);
+          const val = obj.target * ease(p);
+          obj.el.textContent = obj.prefix + fmt(val, obj.suffix);
+          if(p < 1) requestAnimationFrame(tick);
+        }
+        requestAnimationFrame(tick);
+      });
+    }, {threshold: 0.3});
+    els.forEach(el=> io.observe(el));
+  }
+
+  /* ========= 6) CTA MAGNETIC HOVER + RIPPLE ========= */
+  function initButtons(){
+    const ctas = document.querySelectorAll('.btn, .cta');
+
+    // Ripple
+    document.addEventListener('click', (e)=>{
+      const btn = e.target.closest('.btn, .cta');
+      if(!btn) return;
+      const rect = btn.getBoundingClientRect();
+      const ripple = document.createElement('span');
+      ripple.style.position = 'absolute';
+      ripple.style.left = (e.clientX - rect.left) + 'px';
+      ripple.style.top = (e.clientY - rect.top) + 'px';
+      ripple.style.width = ripple.style.height = '12px';
+      ripple.style.borderRadius = '999px';
+      ripple.style.pointerEvents = 'none';
+      ripple.style.background = 'rgba(255,255,255,.35)';
+      ripple.style.filter = 'blur(2px)';
+      ripple.style.transform = 'translate(-50%,-50%) scale(1)';
+      ripple.style.opacity = '0.9';
+      ripple.style.transition = 'transform .6s ease, opacity .6s ease';
+      btn.style.position = 'relative';
+      btn.appendChild(ripple);
+      requestAnimationFrame(()=>{
+        ripple.style.transform = 'translate(-50%,-50%) scale(28)';
+        ripple.style.opacity = '0';
+      });
+      setTimeout(()=> ripple.remove(), 650);
+    });
+
+    // Magnetic hover
+    ctas.forEach(el=>{
+      let raf = 0;
+      function onMove(e){
+        const r = el.getBoundingClientRect();
+        const mx = e.clientX - (r.left + r.width/2);
+        const my = e.clientY - (r.top + r.height/2);
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=>{
+          el.style.transform = `translate(${mx*0.06}px, ${my*0.06}px)`;
+        });
+      }
+      function reset(){ el.style.transform = ''; }
+      el.addEventListener('mousemove', onMove);
+      el.addEventListener('mouseleave', reset);
+      el.addEventListener('blur', reset);
+    });
+  }
+
+  /* ========= 7) OFFER MOCKUP PARALLAX/TILT ========= */
+  function initOfferTilt(){
+    const figures = document.querySelectorAll('.offer-figure');
+    figures.forEach(fig=>{
+      let raf = 0;
+      function move(e){
+        const r = fig.getBoundingClientRect();
+        const rx = (e.clientY - (r.top + r.height/2)) / r.height;
+        const ry = (e.clientX - (r.left + r.width/2)) / r.width;
+        cancelAnimationFrame(raf);
+        raf = requestAnimationFrame(()=>{
+          fig.style.transform = `perspective(800px) rotateX(${rx*-8}deg) rotateY(${ry*8}deg) translateY(-2px)`;
+          fig.style.boxShadow = '0 28px 80px rgba(0,0,0,.45)';
+        });
+      }
+      function leave(){
+        fig.style.transform = '';
+        fig.style.boxShadow = '0 20px 60px rgba(0,0,0,.45)';
+      }
+      fig.addEventListener('mousemove', move);
+      fig.addEventListener('mouseleave', leave);
+      fig.addEventListener('blur', leave);
+    });
+  }
+
+  /* ========= 8) FAQ MICRO-RIPPLE + SLIDE ========= */
+  function initFaqAnimated(){
+    const items = document.querySelectorAll('#faq details');
+    const reduced = prefersReduced;
+
+    items.forEach(d=>{
+      const summary = d.querySelector('summary');
+      const body = d.querySelector('.faq-body');
+      if(!summary || !body) return;
+
+      body.style.overflow = 'hidden';
+      body.style.willChange = 'height, opacity';
+      body.style.transition = reduced ? 'none' : 'height .32s ease, opacity .28s ease';
+
+      if(!d.open){
+        body.style.height = '0px';
+        body.style.opacity = '0';
+      }
+
+      const icon = summary.querySelector('span[aria-hidden]');
+      const syncIcon = (open) => { if(icon) icon.textContent = open ? '➖' : '➕'; };
+      syncIcon(d.open);
+
+      summary.addEventListener('pointerdown', (e)=>{
+        const rect = summary.getBoundingClientRect();
+        summary.style.setProperty('--mx', ((e.clientX-rect.left)/rect.width).toFixed(3));
+        summary.style.setProperty('--my', ((e.clientY-rect.top)/rect.height).toFixed(3));
+        summary.classList.add('pulse');
+        setTimeout(()=> summary.classList.remove('pulse'), 450);
+      });
+
+      function openAnimated(){
+        d.open = true; syncIcon(true);
+        body.style.height = '0px';
+        body.style.opacity = '0';
+        requestAnimationFrame(()=>{
+          const end = body.scrollHeight;
+          body.style.height = end + 'px';
+          body.style.opacity = '1';
+        });
+        const onEnd = ()=>{ body.style.height = 'auto'; body.removeEventListener('transitionend', onEnd); };
+        body.addEventListener('transitionend', onEnd);
+      }
+      function closeAnimated(){
+        const start = body.scrollHeight;
+        body.style.height = start + 'px';
+        body.style.opacity = '1';
+        requestAnimationFrame(()=>{
+          body.style.height = '0px';
+          body.style.opacity = '0';
+        });
+        const onEnd = ()=>{ d.open = false; syncIcon(false); body.removeEventListener('transitionend', onEnd); };
+        body.addEventListener('transitionend', onEnd);
+      }
+      function handleToggle(e){ e.preventDefault(); d.open ? closeAnimated() : openAnimated(); }
+
+      summary.addEventListener('click', handleToggle);
+      summary.addEventListener('keydown', (e)=>{ if(e.key==='Enter'||e.key===' '){ handleToggle(e); }});
+    });
+
+    document.addEventListener('keydown', (e)=>{
+      if(e.key !== 'Escape') return;
+      document.querySelectorAll('#faq details[open]').forEach(d=>{
+        const body = d.querySelector('.faq-body');
+        if(!body) return;
+        const start = body.scrollHeight;
+        body.style.height = start + 'px';
+        body.style.opacity = '1';
+        requestAnimationFrame(()=>{ body.style.height = '0px'; body.style.opacity = '0'; });
+        body.addEventListener('transitionend', ()=>{ d.open = false; }, {once:true});
+        const icon = d.querySelector('summary span[aria-hidden]'); if(icon) icon.textContent = '➕';
+      });
+    });
+  }
+
+  /* ========= 9) LAZY IMAGE POLISH & MISC ========= */
+  function initPolish(){
+    const imgs = document.querySelectorAll('img[loading="lazy"], .offer-figure img');
+    imgs.forEach(img=>{
+      img.style.opacity = '0';
+      img.style.transition = 'opacity .6s ease';
+      if(img.complete){
+        requestAnimationFrame(()=> img.style.opacity = '1');
+      } else {
+        img.addEventListener('load', ()=> img.style.opacity = '1');
+      }
+    });
+
+    if(location.hash === '#offer'){
+      const offers = document.querySelectorAll('section#offer');
+      if(offers.length > 1){
+        const top = offers[0].getBoundingClientRect().top + window.pageYOffset - 12;
+        window.scrollTo({ top, behavior:'smooth' });
+      }
+    }
+  }
+
+  /* ========= 10) HERO REVEAL (бавен stagger за .reveal-lines) ========= */
+  function initHeroReveal(){
+    const hero = document.querySelector('.hero-content');
+    if(!hero) return;
+
+    const items = Array.from(hero.querySelectorAll('.reveal-lines'));
+    items.forEach((el, i) => el.style.setProperty('--i', i));
+
+    if (prefersReduced) { items.forEach(el => el.classList.add('is-visible')); return; }
+
+    const io = new IntersectionObserver((entries, obs) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+          obs.unobserve(entry.target);
+        }
+      });
+    }, { root: null, rootMargin: '0px 0px -10% 0px', threshold: 0.1 });
+
+    items.forEach(el => io.observe(el));
+  }
+
+  /* ========= 11) SKY GOLD TINT (data-sky) ========= */
+  function initSkyTint(){
+    const bg = document.getElementById('bg');
+    if(!bg){
+      console.warn('[sky] Missing #bg canvas. Gold tint will still work, but no starfield.');
+    }
+
+    let tint = document.querySelector('.sky-tint');
+    if(!tint){
+      tint = document.createElement('div');
+      tint.className = 'sky-tint';
+      document.body.appendChild(tint);
+    }
+
+    const sections = Array.from(document.querySelectorAll('[data-sky]'));
+    if(!sections.length){
+      console.info('[sky] No sections with data-sky found.');
+      return;
+    }
+
+    let active = null;
+    function setTint(opacity){
+      const o = Math.max(0, Math.min(1, Number(opacity) || 0.8));
+      tint.style.opacity = String(o);
+    }
+    function activateGold(intensity){
+      document.body.setAttribute('data-sky','gold');
+      setTint(intensity);
+    }
+    function deactivateGold(){
+      document.body.removeAttribute('data-sky');
+      setTint(0);
+    }
+
+    const io = new IntersectionObserver((entries)=>{
+      let best = null;
+      for(const e of entries){ if(!best || e.intersectionRatio > best.intersectionRatio) best = e; }
+      if(!best) return;
+
+      const el = best.target;
+      if(best.isIntersecting){
+        if(active !== el){
+          active = el;
+          const mode = el.getAttribute('data-sky');
+          if(mode === 'gold'){
+            const intensity = el.getAttribute('data-sky-intensity') || 0.8;
+            activateGold(intensity);
+          }else{
+            deactivateGold();
+          }
+        }
+      }else{
+        if(active === el){
+          active = null;
+          const visibleGold = sections.find(s => s !== el && s.getAttribute('data-sky')==='gold' && isMostlyInView(s));
+          if(visibleGold){
+            const intensity = visibleGold.getAttribute('data-sky-intensity') || 0.8;
+            active = visibleGold;
+            activateGold(intensity);
+          }else{
+            deactivateGold();
+          }
+        }
+      }
+    }, { root: null, rootMargin: '0px', threshold: buildThresholds() });
+
+    sections.forEach(el => io.observe(el));
+
+    window.addEventListener('load', ()=>{
+      const firstVisible = sections.find(s => s.getAttribute('data-sky')==='gold' && isMostlyInView(s));
+      if(firstVisible){
+        active = firstVisible;
+        activateGold(firstVisible.getAttribute('data-sky-intensity') || 0.8);
+      }else{
+        deactivateGold();
+      }
+    });
+
+    function buildThresholds(){ const t = []; for(let i=0;i<=1;i+=0.05) t.push(i); return t; }
+    function isMostlyInView(el){
+      const r = el.getBoundingClientRect();
+      const vh = Math.max(document.documentElement.clientHeight, window.innerHeight || 0);
+      const vw = Math.max(document.documentElement.clientWidth, window.innerWidth || 0);
+      const visibleY = Math.max(0, Math.min(r.bottom, vh) - Math.max(r.top, 0));
+      const visibleX = Math.max(0, Math.min(r.right, vw) - Math.max(r.left, 0));
+      const area = r.width * r.height || 1;
+      const visibleArea = visibleX * visibleY;
+      return (visibleArea / area) > 0.45;
+    }
+  }
+
+  /* ========= 12) REDUCED-MOTION SAFEGUARDS ========= */
+  function hardenReducedMotion(){
+    document.querySelectorAll('.offer-figure, .btn, .cta').forEach(el=>{
+      el.style.transition = 'none';
+    });
+  }
+})();
+</script>
+
+<script>
+(function(){
+  const body = document.body;
+  const tint = document.getElementById('skyTint');
+  const faq  = document.getElementById('faq');       // обавезно #faq на секцијата
+
+  // Ако нема FAQ или tint, нема што да правиме
+  if(!faq || !tint){ return; }
+
+  // Начално: златно вклучено
+  body.classList.add('sky--gold');
+
+  // 1) IntersectionObserver: кога FAQ ќе „влезе“, гаси златно
+  const io = new IntersectionObserver((entries)=>{
+    for(const e of entries){
+      if(e.isIntersecting){
+        // FAQ е во поглед → дефолт (темно плаво)
+        body.classList.remove('sky--gold');
+      }else{
+        // FAQ излезе од поглед → провери позиција
+        maybeToggleByScroll();
+      }
+    }
+  }, {
+    root: null,
+    // Почни да гасиш ~200px пред да стигнеш до FAQ (горна маргина)
+    rootMargin: "-200px 0px 0px 0px",
+    threshold: 0
+  });
+  io.observe(faq);
+
+  // 2) Дополнителна логика преку scroll (за под и над FAQ)
+  function maybeToggleByScroll(){
+    // точка каде сакаме златното да згасне малку пред FAQ
+    const cutoff = faq.getBoundingClientRect().top + window.scrollY - 200;
+    if(window.scrollY >= cutoff){
+      body.classList.remove('sky--gold');
+    }else{
+      body.classList.add('sky--gold');
+    }
+  }
+
+  // 3) Слушај scroll/resize за стабилност
+  let ticking = false;
+  window.addEventListener('scroll', ()=>{
+    if(ticking) return;
+    ticking = true;
+    requestAnimationFrame(()=>{
+      maybeToggleByScroll();
+      ticking = false;
+    });
+  }, { passive:true });
+
+  window.addEventListener('resize', ()=>{
+    // по resize, пресметај повторно
+    maybeToggleByScroll();
+  });
+
+  // Првично по вчитување
+  maybeToggleByScroll();
+})();
+</script>
+<script>
+(function(){
+  // 1) Копчето
+  const btn = document.querySelector('a.hero-cta[href="#offer"]');
+  if(!btn) return;
+
+  // 2) Целта (#offer) – ако фали id, земи следна секција по херото
+  let target = document.getElementById('offer');
+  if(!target){
+    const hero = btn.closest('.hero') || document.querySelector('.hero');
+    if(hero && hero.nextElementSibling) target = hero.nextElementSibling;
+  }
+  if(!target) return;
+
+  // 3) Фикс: не дозволува други слушачи да го откажат скролот
+  btn.addEventListener('click', function(e){
+    e.preventDefault();
+    e.stopPropagation();
+
+    // читај ја висината од CSS var --header-h
+    const headerH = parseFloat(
+      getComputedStyle(document.documentElement)
+        .getPropertyValue('--header-h')
+    ) || 0;
+
+    // точна позиција до самиот почеток на #offer
+    const y = target.getBoundingClientRect().top + window.pageYOffset - (headerH + 8);
+
+    // надежно, со smooth
+    window.scrollTo({ top: y, behavior: 'smooth' });
+  }, true); // capture=true за да „победи“ над други listeners
+})();
+</script>
+
+
+
+
+
+
+
+</html>
