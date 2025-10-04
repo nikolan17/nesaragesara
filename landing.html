@@ -775,23 +775,65 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
   }
 }
 
-/* Narrow phones */
+/* Narrow phones — hero text boost */
+/* Narrow phones — enhanced hero presence */
 @media (max-width: 600px){
   .wrap{ padding:16px; }
 
-  /* Hero scaling */
-  .hero{ --hero-bleed: 10vh; --hero-offset: 8vh; }
-  .hero-title{ font-size: clamp(36px, 12vw, 72px); }
-  .hero-subtitle--xl{ font-size: clamp(18px, 4.2vw, 22px); }
-  .hero-subtitle--lg{ font-size: clamp(16px, 4vw, 20px); }
-  .hero-subtitle--md{ font-size: clamp(15px, 3.8vw, 18px); }
-  .hero .btn.btn-lg{ padding:14px 18px; font-size: 15px; }
+  /* HERO section */
+  .hero{
+    --hero-bleed: 14vh; /* was 10vh — extend image lower */
+    --hero-offset: 8vh;
+    min-height: 96vh; /* make hero taller on mobile */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .hero::before{
+    background-image: linear-gradient(180deg, rgba(7,11,20,.65), rgba(7,11,20,.85)), var(--hero);
+    background-size: cover;
+    background-position: center 40%; /* lower image a bit */
+  }
+
+  .hero-content{
+    gap: clamp(18px, 3.5vh, 32px);
+    padding: 0 6vw;
+  }
+
+  .hero-title{
+    font-size: clamp(44px, 14vw, 82px);
+    line-height: 1.1;
+  }
+
+  .hero-subtitle--xl{
+    font-size: clamp(22px, 5vw, 28px);
+    line-height: 1.3;
+  }
+
+  .hero-subtitle--lg{
+    font-size: clamp(18px, 4.8vw, 24px);
+    line-height: 1.4;
+  }
+
+  .hero-subtitle--md{
+    font-size: clamp(16px, 4.2vw, 20px);
+    line-height: 1.45;
+  }
+
+  .hero .btn.btn-lg{
+    padding:16px 24px;
+    font-size:16px;
+    width:60%;
+    max-width:460px;
+  }
 
   /* Offer visuals */
   .offer-figure{ max-width:320px; }
   .offer-media .badge-off{ padding:8px 12px; font-size:11px; }
 
-  /* KPI: single column for clarity */
+  /* KPI grid */
   .kpis-grid{ grid-template-columns:1fr; gap:14px; }
   .kpi .value{ font-size:32px; }
   .kpi .icon{ width:50px; height:50px; }
@@ -801,27 +843,6 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
   #faq summary > span[aria-hidden]{ right:12px; }
 }
 
-/* Ultra-small devices / very tight layouts */
-@media (max-width: 380px){
-  :root{ --radius:12px; --radius-xl:20px; }
-
-  .badge{ padding:5px 10px; font-size:11px; }
-  .pill, .pill-ghost{ padding:5px 10px; font-size:11px; }
-
-  .offer-panel{ padding:14px; }
-  .price-box{ padding:16px; }
-  .offer-figure{ max-width:280px; }
-  .big{ font-size:42px; }
-
-  /* Tone down glows further so nothing blooms */
-  .big-glow{ text-shadow: 0 0 12px rgba(241,210,106,.18), 0 0 22px rgba(212,175,55,.14); }
-  .kpi:hover,
-  .kpi.is-featured{
-    box-shadow:
-      inset 0 0 0 1px rgba(212,175,55,.18),
-      0 0 16px rgba(212,175,55,.16);
-  }
-}
 
 
 </style>
@@ -841,7 +862,7 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
     </h1>
 
     <p class="hero-subtitle hero-subtitle--xl reveal-lines">
-      Begin your journey toward financial freedom today!
+      Change the way you think about money.
     </p>
 
     <p class="hero-subtitle hero-subtitle--md reveal-lines">
@@ -903,7 +924,7 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
         <div class="badge-off">BEST DEAL!</div>
         <figure class="offer-figure">
   <!-- Set your file later -->
-      <img src="premium.png"
+      <img src="premiumpackage.png"
        alt="Offer visual"
        width="817" height="1228"
        loading="lazy" />
