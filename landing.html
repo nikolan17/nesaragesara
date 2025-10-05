@@ -574,63 +574,17 @@ noscript .reveal-lines{ opacity:1; transform:none; filter:none; }
   .wrap{ padding:16px; }
 
   /* Hero presence */
-  .hero{
-    --hero-bleed:14vh; --hero-offset:8vh;
-    min-height:96vh; display:flex; align-items:center; justify-content:center; text-align:center;
-  }
+  .hero{ --hero-bleed:14vh; --hero-offset:8vh; min-height:96vh; display:flex; align-items:center; justify-content:center; text-align:center; }
   .hero::before{
-    background-image: linear-gradient(180deg, rgba(7,11,20,.68), rgba(7,11,20,.88)), var(--hero);
-    background-size: cover; background-position: center 40%;
+    background-image: linear-gradient(180deg, rgba(7,11,20,.65), rgba(7,11,20,.85)), var(--hero);
+    background-size:cover; background-position:center 40%;
   }
-
-  .hero-content{
-    /* a touch more overall spacing */
-    gap: clamp(22px, 4vh, 36px);
-    padding: 0 7vw;
-  }
-
-  .hero-title{
-    font-size: clamp(48px, 16vw, 82px);
-    line-height: 1.1;
-  }
-
-  /* Paragraphs: slightly bigger + clearer hierarchy */
-  .hero-subtitle{ margin: 0; }
-
-  .hero-subtitle--xl{
-    font-size: clamp(24px, 5.8vw, 30px);  /* was 22–28 */
-    line-height: 1.32;
-    font-weight: 800;                      /* bring it “in front” */
-    text-shadow: 0 1px 2px rgba(0,0,0,.35);
-  }
-
-  .hero-subtitle--lg{
-    font-size: clamp(20px, 5.2vw, 26px);   /* was 18–24 */
-    line-height: 1.42;
-    font-weight: 700;
-    text-shadow: 0 1px 2px rgba(0,0,0,.3);
-  }
-
-  .hero-subtitle--md{
-    font-size: clamp(18px, 4.8vw, 22px);   /* was 16–20 */
-    line-height: 1.48;
-    font-weight: 600;
-    text-shadow: 0 1px 2px rgba(0,0,0,.25);
-  }
-
-  /* Extra spacing between paragraphs (without affecting the title) */
-  .hero-subtitle + .hero-subtitle{
-    margin-top: clamp(12px, 4vh, 24px);
-  }
-
-  /* CTA button */
-  .hero .btn.btn-lg{
-    padding: 16px 24px;
-    font-size: 16px;
-    width: 86%;
-    max-width: 480px;
-  }
-}
+  .hero-content{ gap: clamp(18px, 3.5vh, 32px); padding:0 6vw; }
+  .hero-title{ font-size: clamp(48px, 16vw, 86px); line-height:1.1; }
+  .hero-subtitle--xl{ font-size: clamp(22px, 5vw, 28px); line-height:1.3; }
+  .hero-subtitle--lg{ font-size: clamp(18px, 4.8vw, 24px); line-height:1.4; }
+  .hero-subtitle--md{ font-size: clamp(16px, 4.2vw, 20px); line-height:1.45; }
+  .hero .btn.btn-lg{ padding:16px 24px; font-size:16px; width:81%; max-width:460px; }
 
   /* Offer visuals */
   .offer-figure{ max-width:320px; }
@@ -644,7 +598,7 @@ noscript .reveal-lines{ opacity:1; transform:none; filter:none; }
   /* FAQ tap comfort */
   #faq summary{ padding:16px 42px 16px 16px; }
   #faq summary > span[aria-hidden]{ right:12px; }
-
+}
 
 /* 1) Нема стаклен/картич позадинен панел */
 .offer-card-v2{ 
@@ -971,7 +925,7 @@ noscript .reveal-lines{ opacity:1; transform:none; filter:none; }
             <span class="pill-ghost">Limited Time</span>
           </div>
           <div class="big big-glow">$2,999</div>
-          <p class="subt subt-future">Premium Access — Depth, priority, acceleration.y</p>
+          <p class="subt subt-future">Premium Access — Depth, priority, acceleration.</p>
         </div>
         <a class="btn btn-gold btn-shine btn-ord" href="#buy" aria-label="Buy now">
           <span class="btn-label">Buy Now</span>
