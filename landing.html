@@ -7,7 +7,7 @@
   <title>NESARA & GESARA</title>
   <meta name="description" content="One‑page landing for a NESARA & GESARA card product." />
 <style>
-/* =========================================================
+  /* =========================================================
    NESARA & GESARA — Gold/Navy Theme (soft gold sky via #skyTint)
    ========================================================= */
 
@@ -40,10 +40,13 @@
   --shadow:0 12px 40px rgba(0,0,0,.35);
   --shadow-xl:0 18px 60px rgba(0,0,0,.45);
 
-  /* === Controls for gold tint strength === */
-  --gold-intensity: .18; /* .10–.24 looks good */
-  --gold-a1: .14;        /* core glow alpha */
-  --gold-a2: .04;        /* wide soft glow alpha */
+  /* Gold tint controls */
+  --gold-intensity:.18; /* .10–.24 looks good */
+  --gold-a1:.14;
+  --gold-a2:.04;
+
+  --header-h:72px;            /* for anchor offsets */
+  --text-rgb:232,236,244;
 }
 
 *{ box-sizing:border-box; }
@@ -54,45 +57,35 @@ body{
   font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,Roboto,Inter,Arial,sans-serif;
   line-height:1.6;
   color:var(--text);
-  --text-rgb:232,236,244;
-  background:#070b14;           /* само базна нијанса тука */
+  background:#070b14;
   position:relative;
   overflow-x:hidden;
 }
 
-/* ЕДЕН глобален бекграунд слој — фиксно зад целата страница */
+/* Global background (under canvas & tint) */
 body::before{
   content:"";
-  position:fixed;
-  inset:0;
-  z-index:-3;                    /* под #bg и #skyTint */
-  pointer-events:none;
+  position:fixed; inset:0; z-index:-3; pointer-events:none;
   background:
     radial-gradient(1200px 600px at 80% -50%, #0e1422 0%, transparent 60%),
     radial-gradient(900px 500px at -20% 0%,  #0a1020 0%, transparent 60%),
     #070b14;
-  background-repeat:no-repeat;
-  background-position:center;
-  background-size:cover;
+  background-repeat:no-repeat; background-position:center; background-size:cover;
 }
-
 
 a{ color:var(--primary); }
 .wrap{ max-width:1120px; margin:0 auto; padding:20px; }
 
-/* ================ 10) BACKGROUND LAYERS ================= */
+/* ================ BACKGROUND LAYERS ===================== */
 #bg{
-  position:fixed; inset:0;
-  width:100vw; height:100vh;
+  position:fixed; inset:0; width:100vw; height:100vh;
   z-index:-2; pointer-events:none; display:block;
 }
 
 /* Soft gold tint above canvas, below content */
 #skyTint{
-  position: fixed; inset: 0; z-index: -1;
-  pointer-events: none;
-  opacity: 0;                         /* toggled via body.sky--gold */
-  transition: opacity .35s ease;
+  position:fixed; inset:0; z-index:-1; pointer-events:none;
+  opacity:0; transition:opacity .35s ease;
   background:
     radial-gradient(1100px 700px at 50% 30%,
       rgba(241,210,106,var(--gold-a1)),
@@ -100,18 +93,14 @@ a{ color:var(--primary); }
       rgba(185,134,44,calc(var(--gold-a1)*.35)) 66%,
       rgba(0,0,0,0) 100%),
     radial-gradient(180vw 120vh at 50% 10%,
-      rgba(255,215,0,var(--gold-a2)),
-      rgba(0,0,0,0) 70%);
-  mix-blend-mode: soft-light;
-  filter: brightness(.95);
+      rgba(255,215,0,var(--gold-a2)), rgba(0,0,0,0) 70%);
+  mix-blend-mode: soft-light; filter: brightness(.95);
 }
 body.sky--gold #skyTint{ opacity: var(--gold-intensity); }
 body.sky--gold #bg{
   filter: sepia(.25) saturate(1.15) hue-rotate(6deg) brightness(1.03);
 }
-@media (prefers-reduced-motion: reduce){
-  #skyTint{ transition: none; }
-}
+@media (prefers-reduced-motion: reduce){ #skyTint{ transition:none; } }
 
 /* ================ 1) LAYOUT & HEADER ==================== */
 header{
@@ -132,8 +121,7 @@ header{
 /* ================ 2) BUTTONS ============================ */
 .btn{
   display:inline-flex; align-items:center; justify-content:center; gap:.6rem;
-  padding:14px 22px;
-  border-radius: var(--radius);
+  padding:14px 22px; border-radius:var(--radius);
   font-weight:800; letter-spacing:.3px;
   text-decoration:none; border:0;
   transition: transform .12s ease, box-shadow .2s ease, filter .2s ease, background .3s ease;
@@ -158,6 +146,8 @@ header{
   box-shadow: 0 0 0 3px rgba(0,0,0,.35), 0 0 0 5px rgba(241,210,106,.55);
   border-color: rgba(0,0,0,.45);
 }
+
+/* Shine (used by .btn-shine and hero CTA) */
 .btn-gold.btn-shine::before{
   content:""; position:absolute; inset:0; transform: translateX(-120%);
   background: linear-gradient(75deg, transparent 0%, rgba(255,255,255,.18) 35%, rgba(255,255,255,.02) 60%, transparent 100%);
@@ -165,75 +155,26 @@ header{
 .btn-gold:hover.btn-shine::before{ animation: shine 900ms ease; }
 @keyframes shine{ to{ transform: translateX(120%); } }
 
-/* ===== HERO CTA — компактни стилови (само ова копче) ===== */
-
-/* 1) Компактно SOLID златно (default) */
+/* Hero CTA compact variant */
 .btn-gold.hero-cta{
-  border-radius: 12px;
-  padding: 12px 18px;
-  font-size: clamp(13px, 1vw, 16px);
-  letter-spacing:.2px;
-  color:#0b0d12;
-  background: linear-gradient(180deg, var(--primary-2), var(--primary));
-  border: 1px solid rgba(0,0,0,.35);
+  border-radius: 12px; padding: 12px 18px;
+  font-size: clamp(13px, 1vw, 16px); letter-spacing:.2px;
   box-shadow: 0 6px 18px rgba(212,175,55,.18);
-  transition: transform .12s ease, filter .2s ease, box-shadow .2s ease, background .3s ease;
-  overflow: hidden; /* за shine ефектот подолу */
 }
-.btn-gold.hero-cta:hover{
-  transform: translateY(-1px);
-  filter: brightness(1.03) saturate(1.05);
-  box-shadow: 0 10px 26px rgba(212,175,55,.22);
-}
-.btn-gold.hero-cta:active{ transform: translateY(0); filter: brightness(.98); }
 .btn-gold.hero-cta:focus-visible{
   outline:none;
   box-shadow: 0 0 0 3px rgba(0,0,0,.45), 0 0 0 5px rgba(241,210,106,.45);
 }
-
-/* Посуптилен shine (остануваш со .btn-shine класата) */
 .btn-gold.hero-cta.btn-shine::before{
-  content:"";
-  position:absolute; inset:-30% -10%;
+  content:""; position:absolute; inset:-30% -10%;
   transform: translateX(-140%) rotate(8deg);
   background: linear-gradient(75deg, transparent 0%, rgba(255,255,255,.28) 20%, rgba(255,255,255,.06) 36%, transparent 52%);
 }
 .btn-gold.hero-cta.btn-shine:hover::before{ animation: shine 800ms ease; }
-@keyframes shine{ to{ transform: translateX(140%) rotate(8deg); } }
 
-/* 2) OUTLINE варијанта (додај .is-outline на истото копче) */
-.btn-gold.hero-cta.is-outline{
-  background: transparent;
-  color: var(--primary-2);
-  border: 1.5px solid currentColor;
-  box-shadow: none;
-}
-.btn-gold.hero-cta.is-outline:hover{
-  background: linear-gradient(180deg, rgba(241,210,106,.12), rgba(212,175,55,.14));
-  transform: translateY(-1px);
-}
-
-/* 3) GHOST (минимално, темна позадина со златен раб) */
-.btn-gold.hero-cta.is-ghost{
-  background: #0f1320;
-  color: var(--primary-2);
-  border: 1px solid rgba(241,210,106,.45);
-  box-shadow: none;
-}
-.btn-gold.hero-cta.is-ghost:hover{
-  background: #121621;
-  transform: translateY(-1px);
-}
-
-/* Smooth scroll */
-html { scroll-behavior: smooth; }
-
-/* Колку да остави простор под хедер (смени ако треба) */
-:root { --header-h: 72px; }
-
-/* Без преголем offset – чисто „легнување“ на почетокот на #offer */
-#offer { scroll-margin-top: calc(var(--header-h, 72px) + 8px); }
-
+/* Smooth scroll + anchor offset */
+html{ scroll-behavior:smooth; }
+#offer, #offer-1{ scroll-margin-top: calc(var(--header-h,72px) + 8px); }
 
 /* ================ 3) HERO =============================== */
 .hero-grid{ display:block; }
@@ -273,46 +214,20 @@ html { scroll-behavior: smooth; }
 .hero-subtitle + .hero-subtitle{ margin-top: clamp(8px, 1.6vh, 16px); }
 
 .hero{
-  position: relative; isolation: isolate; overflow: visible; display: flow-root; 
-  --hero-bleed: 18vh; --hero-offset: 14vh;
+  position:relative; isolation:isolate; overflow:visible; display:flow-root;
+  --hero-bleed:18vh; --hero-offset:14vh;
 }
 .hero::before{
-  content:"";
-  position:absolute;
-  top:0;
-  bottom: calc(var(--hero-bleed) * -1);
-  left:50%;
-  width:100vw;
-  transform:translateX(-50%);
-  z-index:-1;
-
-  /* слика + многу суптилен затемнувачки слој */
+  content:""; position:absolute;
+  top:0; bottom: calc(var(--hero-bleed) * -1); left:50%; width:100vw;
+  transform:translateX(-50%); z-index:-1;
   background-image:
-    linear-gradient(180deg,
-      rgba(7,11,20,.45) 0%,
-      rgba(7,11,20,.25) 50%,
-      rgba(7,11,20,0)   85%
-    ),
+    linear-gradient(180deg, rgba(7,11,20,.45) 0%, rgba(7,11,20,.25) 50%, rgba(7,11,20,0) 85%),
     var(--hero);
-  background-size:cover;
-  background-position:center 40%;
-  background-repeat:no-repeat;
-
-  filter: contrast(1.04) saturate(1.06);
-  pointer-events:none;
-
-  /* клучното — мазен fade надолу */
+  background-size:cover; background-position:center 40%; background-repeat:no-repeat;
+  filter: contrast(1.04) saturate(1.06); pointer-events:none;
   -webkit-mask-image: linear-gradient(to bottom, #000 60%, rgba(0,0,0,0) 95%);
           mask-image: linear-gradient(to bottom, #000 60%, rgba(0,0,0,0) 95%);
-}
-
-
-@media (max-width: 900px){
-  .hero{ --hero-bleed: 100vh; --hero-offset: 10vh; }
-  .hero::before{
-    background-image: linear-gradient(180deg, rgba(7,11,20,.62), rgba(7,11,20,.72)), var(--hero);
-    background-position: center 30%;
-  }
 }
 
 /* ================ 4) CARDS & PROSE ===================== */
@@ -336,140 +251,127 @@ html { scroll-behavior: smooth; }
 .prose p{ margin:0 0 12px; }
 .prose p:last-child{ margin-bottom:0; }
 
-/* ================ 5) OFFER SECTION ===================== */
-.section{ padding:56px 0; margin-top: 25vh; background: transparent !important }
+/* ================ 5) OFFER SECTION (V2) ================= */
+/* Keep section spacing */
+.section{ padding:56px 0; margin-top:25vh; background:transparent !important; }
 .section h2{ margin:0 0 8px; font-size:28px; }
 .section p.lead{ margin:0 0 18px; }
 
-.offer-hero{
-  display:grid;
-  grid-template-columns: 1fr 1fr;
-  gap:24px; align-items:center;
+/* Old layout → unified card */
+.offer-hero{ grid-template-columns:1fr; display:grid; gap:24px; align-items:center; }
+
+/* Grid-bg behind the card */
+.offer-hero--v2{
+  display:block;
+  padding-block:0;
+  background:
+    linear-gradient(transparent 23px, rgba(255,255,255,.04) 24px, transparent 24px),
+    linear-gradient(90deg, transparent 23px, rgba(255,255,255,.04) 24px, transparent 24px),
+    radial-gradient(1200px 600px at 50% -200px, rgba(212,175,55,.08), transparent 70%),
+    var(--bg);
+  background-size:24px 24px, 24px 24px, auto, auto;
+  border-radius:var(--radius-xl);
 }
 
-/* Media (left column) */
-.offer-media{ position:relative; }
-.offer-media .badge-off{
-  position:absolute; top:10px; left:10px; z-index:2;
-  background: linear-gradient(180deg, var(--primary-2), var(--primary));
-  color:#0b0d12; font-weight:800;
-  border-radius:999px; padding:10px 14px; font-size:12px;
-  border:1px solid rgba(0,0,0,.28);
-  box-shadow:0 10px 26px rgba(212,175,55,.28);
+.offer-card-v2{
+  position:relative; z-index:2;
+  max-width:880px; margin:0 auto; padding:20px;
+  background:rgba(18,22,33,.55);
+  border:1px solid rgba(255,255,255,.07);
+  border-radius:calc(var(--radius) + 6px);
+  box-shadow:var(--shadow);
+  backdrop-filter: blur(6px);
 }
+
+/* Image figure with overlays */
 .offer-figure{
-  width:min(460px, 100%);
-  aspect-ratio:817 / 1228;
-  border-radius:18px; overflow:hidden;
+  position:relative; z-index:0;
+  width:100%; aspect-ratio:5/7;
+  border-radius:var(--radius); overflow:hidden;
   background:linear-gradient(180deg,#151922,#0f1320);
   border:1px solid rgba(255,255,255,.06);
   box-shadow:0 20px 60px rgba(0,0,0,.45);
-  position:relative;
 }
+.offer-figure img{
+  position:absolute; inset:0; width:100%; height:100%;
+  object-fit:cover; display:block; filter:saturate(1.05);
+}
+
+/* Top & bottom scrims (under header/footer overlays) */
+.offer-figure::before,
+.offer-figure::after{ position:absolute; content:""; inset:auto 0 0 0; pointer-events:none; z-index:1; }
 .offer-figure::after{
-  content:""; position:absolute; inset:0;
-  background:radial-gradient(600px 200px at 30% -10%, rgba(255,255,255,.12), transparent 60%);
-  pointer-events:none;
+  height:50%;
+  background:linear-gradient(180deg,
+      rgba(6,8,14,0) 0%,
+      rgba(6,8,14,.70) 35%,
+      rgba(6,8,14,.90) 68%,
+      rgba(6,8,14,.97) 100%);
 }
-.offer-figure img{ width:100%; height:100%; object-fit:cover; display:block; }
-
-/* Futuristic Offer Panel */
-.offer-panel{
-  position: relative;
-  background: linear-gradient(180deg, rgba(17,21,33,.65), rgba(12,16,28,.55));
-  border: 1px solid var(--border);
-  border-radius: var(--radius-xl);
-  padding: 20px;
-  box-shadow: var(--shadow-xl);
-  overflow: hidden;
-  isolation: isolate;
-  backdrop-filter: blur(6px);
-}
-.offer-panel::before{
-  content:""; position:absolute; inset: -1px;
-  border-radius: inherit; padding: 1px;
-  background: linear-gradient(120deg, rgba(212,175,55,.35), rgba(241,210,106,.15) 35%, rgba(212,175,55,.35) 70%, rgba(241,210,106,.10));
-  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
-  -webkit-mask-composite: xor; mask-composite: exclude;
-  animation: borderFlow 6s linear infinite;
-  pointer-events:none; z-index:-1;
-}
-@keyframes borderFlow{ 0%{ filter:hue-rotate(0deg) } 100%{ filter:hue-rotate(360deg) } }
-.offer-panel::after{
-  content:""; position:absolute; inset:0;
-  background:
-    radial-gradient(600px 220px at 70% -10%, rgba(245,211,122,.14), transparent 60%),
-    radial-gradient(480px 180px at 10% 105%, rgba(183,138,44,.12), transparent 60%),
-    repeating-linear-gradient(90deg, rgba(255,255,255,.03) 0 1px, transparent 1px 30px),
-    repeating-linear-gradient(0deg, rgba(255,255,255,.02) 0 1px, transparent 1px 24px);
-  opacity:.7; pointer-events:none; z-index:-2;
+.offer-figure::before{
+  inset:0 0 auto 0; height:28%;
+  background:linear-gradient(180deg, rgba(6,8,14,.55), rgba(6,8,14,0));
 }
 
-.offer-head{ display:flex; align-items:center; justify-content:space-between; gap:12px; margin-bottom:10px; }
-.title-future{
-  margin:0; letter-spacing:.4px;
+/* Top header overlay (above scrims) */
+.offer-top{
+  position:absolute; top:18px; left:18px; right:18px;
+  z-index:3; display:flex; align-items:center; gap:12px;
+  padding:18px 20px;
+  background:rgba(12,14,20,.55);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:16px;
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+}
+.offer-top .title-future{
+  margin:0; font-size:clamp(16px,1.6vw,20px); letter-spacing:.8px;
   background: linear-gradient(180deg, #fff, rgba(var(--text-rgb), .86));
   -webkit-background-clip:text; background-clip:text; color:transparent;
   text-shadow: 0 1px 0 rgba(0,0,0,.35);
 }
-.holo-badge{
-  display:inline-flex; align-items:center; gap:.4rem;
-  padding:8px 12px; font-size:12px; font-weight:800; letter-spacing:.3px;
-  border-radius:999px; color:#0b0d12;
-  background: linear-gradient(120deg, var(--primary-2), var(--primary) 60%, #cfb060);
-  box-shadow: 0 10px 26px rgba(212,175,55,.28);
-  border: 1px solid rgba(0,0,0,.28);
-}
-
-.lead-future{ margin: 6px 0 14px; color: rgba(var(--text-rgb), .92); position:relative; }
-.lead-future::after{
-  content:""; position:absolute; left:0; bottom:-6px; width:64px; height:2px;
-  background: linear-gradient(90deg, var(--primary-2), transparent); border-radius:2px; opacity:.85;
-}
-
-.price-box{
-  max-width:360px; margin:18px auto;
-  background:linear-gradient(180deg,#151922,#0f1320);
-  border:1px solid rgba(241,210,106,.16);
-  border-radius:18px; padding:22px;
-  box-shadow:0 18px 50px rgba(0,0,0,.35), inset 0 0 0 1px rgba(255,255,255,.02);
-}
-.price-box-future{
-  background: linear-gradient(180deg, #151922, #0f1320);
-  border: 1px solid rgba(241,210,106,.14);
-  border-radius: var(--radius);
-  padding:16px; display:grid; gap:12px;
-  box-shadow: inset 0 0 0 1px rgba(255,255,255,.02), 0 10px 28px rgba(0,0,0,.35);
-}
-.price-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
-
-.pill{
-  display:inline-flex; align-items:center; gap:8px;
-  background: linear-gradient(180deg, var(--primary-2), var(--primary));
+.offer-top .holo-badge{
+  margin-left:auto; font-size:13px; padding:7px 12px;
   color:#0b0d12;
-  border:1px solid rgba(0,0,0,.28);
-  border-radius:999px;
-  padding:6px 12px; font-weight:700; font-size:12px;
-}
-.pill-ghost{
-  color: var(--primary-2);
-  background: rgba(241,210,106,.10);
-  border: 1px solid rgba(241,210,106,.25);
-  padding:6px 10px; border-radius:999px; font-weight:700; font-size:12px;
+  background: linear-gradient(120deg, var(--primary-2), var(--primary) 60%, #cfb060);
+  border-radius:999px; border:1px solid rgba(0,0,0,.28);
+  box-shadow:0 10px 26px rgba(212,175,55,.28);
 }
 
-.og{ color:#98a2b3; text-decoration:line-through; margin-right:10px; opacity:.9; }
+/* Bottom band: price + CTA (above bottom scrim) */
+.offer-bottom{
+  position:absolute; left:0; right:0; bottom:0; z-index:3;
+  display:flex; align-items:center; gap:16px;
+  padding:22px;
+  background:linear-gradient(180deg, transparent, rgba(6,8,14,.88) 45%, rgba(6,8,14,.96));
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.price-left{ display:grid; gap:6px }
+.price-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.og{ color:#98a2b3; text-decoration:line-through; opacity:.95; margin-right:0; }
 .big{ font-size:64px; font-weight:900; letter-spacing:.5px; }
 .big-glow{
-  font-size: clamp(28px, 4.5vw, 40px);
-  font-weight: 900; letter-spacing:.6px; color:#fff;
-  text-shadow: 0 0 18px rgba(241,210,106,.25), 0 0 38px rgba(212,175,55,.2);
+  font-size:clamp(28px,5vw,40px);
+  font-weight:900; letter-spacing:.6px; color:#fff;
+  text-shadow:0 2px 22px rgba(0,0,0,.55), 0 0 28px rgba(241,210,106,.25);
 }
 .subt{ color:#cbd3e3; margin-top:6px; }
-.subt-future{ margin:0; color: var(--muted); }
+.subt-future{ margin:0; color:var(--muted); }
 
-.rating{ display:flex; align-items:center; gap:10px; margin:10px 0 16px; }
-.stars{ color:#ffcf4a; letter-spacing:2px; }
+/* CTA on the right (full width on mobile) */
+.btn-ord{
+  margin-left:auto; flex:0 0 auto;
+  padding:12px 18px; border-radius:12px; font-weight:900; text-decoration:none;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 10px 24px rgba(212,175,55,.35);
+  transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn-ord:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+.btn-ord:active{ transform: translateY(0) scale(.98); }
+
+/* Old/unused offer pieces hidden */
+.offer-media .badge-off{ display:none; }
+.offer-panel{ display:none !important; }
 
 /* ================ 6) KPI & STATE CARDS ================= */
 .kpis-grid{ display:grid; grid-template-columns:repeat(3,1fr); gap:24px; }
@@ -477,6 +379,9 @@ html { scroll-behavior: smooth; }
   background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.015));
   border:1px solid var(--border); border-radius:18px; padding:22px; box-shadow:var(--shadow);
   display:flex; flex-direction:column; align-items:center; justify-content:center; text-align:center;
+  position:relative;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease, transform .2s ease;
+  will-change: box-shadow, transform;
 }
 .kpi .icon{
   width:54px; height:54px; border-radius:16px; display:grid; place-items:center;
@@ -495,170 +400,8 @@ html { scroll-behavior: smooth; }
 .kpi .label{ color:#c7cfdd; margin-top:8px; }
 .kpi .sub{ color:#9aa3b2; font-size:12px; margin-top:4px; }
 
-/* ================ 7) FAQ ================================ */
-.faq{ max-width:900px; }
-
-/* container */
-#faq details{
-  position:relative;
-  border-radius:14px;
-  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
-  border:1px solid var(--faq-border);
-  margin:10px 0;
-  overflow:clip;
-  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
-}
-
-/* gold glow on hover/open */
-#faq details:hover,
-#faq details[open]{
-  border-color: rgba(212,175,55,.45);
-  background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
-  box-shadow:
-    inset 0 0 0 1px var(--gold-soft),
-    0 0 22px var(--gold-soft),
-    0 0 56px rgba(212,175,55,.12);
-}
-#faq details::after{
-  content:""; position:absolute; inset:-2px; border-radius:inherit;
-  background:
-    radial-gradient(120% 70% at 50% -10%, var(--gold-glow), transparent 60%),
-    radial-gradient(80% 60% at 50% 120%, rgba(212,175,55,.18), transparent 60%);
-  filter: blur(10px);
-  opacity:0; pointer-events:none; transition: opacity .25s ease;
-}
-#faq details:hover::after,
-#faq details[open]::after{ opacity:1; }
-
-/* summary row */
-#faq summary{
-  list-style:none; cursor:pointer;
-  padding:14px 44px 14px 16px; position:relative; outline:none;
-  display:flex; align-items:center; justify-content:space-between;
-  font-weight:600;
-}
-#faq summary::-webkit-details-marker{ display:none; }
-#faq summary > span[aria-hidden]{
-  position:absolute; right:14px; top:50%;
-  transform:translateY(-50%); transition: transform .28s ease, opacity .28s ease, color .25s ease;
-  font-weight:900; opacity:.9;
-}
-#faq details[open] summary > span[aria-hidden]{ transform:translateY(-50%) rotate(0deg); opacity:1; color: var(--primary-2); }
-
-/* answer body (animated height handled by JS) */
-#faq .faq-body{
-  padding: 0 18px;        /* horizontal padding even when closed */
-  height: 0;
-  overflow: hidden;
-  transition: height .32s ease, opacity .28s ease, padding-top .2s ease, padding-bottom .2s ease;
-}
-#faq details:not([open]) .faq-body{ opacity: 0; }
-#faq details[open] .faq-body{ padding: 12px 18px 16px; }
-
-/* content tidy */
-#faq .faq-body > :first-child{ margin-top: 0; }
-#faq .faq-body > :last-child{  margin-bottom: 0; }
-#faq .faq-body ul{ padding-left: 1.15rem; margin: 8px 0 0; }
-#faq .faq-body li{ margin: 6px 0; }
-
-/* subtle divider when open */
-#faq details[open] summary{ box-shadow: inset 0 -1px 0 rgba(255,255,255,.08); }
-
-/* pulse ripple on click */
-#faq summary.pulse::before{
-  content:""; position:absolute;
-  left: calc(var(--mx, .5) * 100%); top: calc(var(--my, .5) * 100%);
-  transform: translate(-50%, -50%) scale(.4);
-  width:20px; height:20px; border-radius:999px;
-  background: radial-gradient(circle at center, var(--faq-gold), rgba(0,0,0,0) 60%);
-  filter: blur(6px);
-  animation: faq-pulse .45s ease-out forwards;
-  pointer-events:none;
-}
-@keyframes faq-pulse{ to{ opacity:0; transform: translate(-50%, -50%) scale(2.6); } }
-
-/* ================ 8) FOOTER ============================= */
-footer{
-  border-top:1px solid var(--border);
-  padding:24px 0;
-  color:var(--muted);
-  font-size:14px;
-}
-.foot-grid{
-  display:flex; flex-direction:column; align-items:center; justify-content:center;
-  gap:8px; text-align:center;
-}
-.foot-links{ margin-top:4px; }
-.foot-links.spaced{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
-
-footer .foot-grid > div .muted:first-of-type { color:#4b5563; }
-footer .foot-grid > div .muted:nth-of-type(2){ color:#374151; }
-
-footer .muted{
-  --tw-text-opacity: 1;
-  color: rgb(55 65 81 / var(--tw-text-opacity, 1));
-}
-
-/* ================ 9) UTILITIES ========================== */
-.grid{ display:grid; gap:16px; }
-.muted{ color:var(--muted); }
-.center{ text-align:center; }
-
-/* ================ 11) MEDIA QUERIES ===================== */
-@media (max-width: 900px){
-  .hero-grid{ grid-template-columns:1fr; }
-  .offer-hero{ grid-template-columns:1fr; }
-  .offer-figure{ margin-inline:auto; max-width:380px; }
-  .title{ font-size:34px; }
-  .big{ font-size:48px; }
-  .kpis-grid{ grid-template-columns:repeat(2,1fr); }
-  .states-grid{ grid-template-columns:repeat(2,1fr); }
-
-  :root{
-    --gold-intensity: .16;
-    --gold-a1: .12;
-    --gold-a2: .03;
-  }
-}
-
-/* ================ 12) A11Y ============================== */
-@media (prefers-reduced-motion: reduce){
-  #faq summary.pulse::before{ animation:none; display:none; }
-  #faq .faq-body{ transition:none !important; }
-}
-
-/* ===== Reveal on load ===== */
-.reveal-lines {
-  opacity: 0;
-  transform: translateY(14px);
-  filter: blur(6px);
-  transition:
-    opacity 1.3s cubic-bezier(.22,.61,.21,.99),
-    transform 1.3s cubic-bezier(.22,.61,.21,.99),
-    filter   1.3s cubic-bezier(.22,.61,.21,.99);
-  will-change: opacity, transform, filter;
-}
-.reveal-lines.is-visible { opacity: 1; transform: none; filter: none; }
-.hero-content { --reveal-delay: 180ms; --reveal-stagger: 300ms; }
-.hero-content .reveal-lines { transition-delay: calc(var(--reveal-delay, 0ms) + var(--reveal-stagger, 240ms) * var(--i, 0)); }
-@media (prefers-reduced-motion: reduce) {
-  .reveal-lines { transition: none !important; }
-  .reveal-lines,
-  .reveal-lines.is-visible { opacity: 1 !important; transform: none !important; filter: none !important; }
-}
-noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
-/* ===== KPI cards — gold glow (matches FAQ style) ===== */
-.kpi{
-  position: relative;                         /* needed for the halo */
-  transition: border-color .25s ease,
-              box-shadow .25s ease,
-              background .25s ease,
-              transform .2s ease;
-  will-change: box-shadow, transform;
-}
-
-.kpi:hover,
-.kpi:focus-visible{
+/* Gold glow on hover/open (matches FAQ) */
+.kpi:hover, .kpi:focus-visible{
   border-color: rgba(212,175,55,.45);
   background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
   box-shadow:
@@ -666,172 +409,232 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
     0 0 22px var(--gold-soft),
     0 0 56px rgba(212,175,55,.12);
   transform: translateY(-2px);
-  outline: none;
+  outline:none;
 }
-
-/* Soft outer halo (same recipe as FAQ) */
 .kpi::after{
-  content:"";
-  position:absolute; inset:-2px; border-radius:inherit;
+  content:""; position:absolute; inset:-2px; border-radius:inherit;
   background:
     radial-gradient(120% 70% at 50% -10%, var(--gold-glow), transparent 60%),
     radial-gradient(80% 60% at 50% 120%, rgba(212,175,55,.18), transparent 60%);
-  filter: blur(10px);
-  opacity:0; pointer-events:none;
-  transition: opacity .25s ease;
+  filter: blur(10px); opacity:0; pointer-events:none; transition:opacity .25s ease;
 }
-.kpi:hover::after,
-.kpi:focus-visible::after{ opacity:1; }
-
-/* Keep icons/text feeling “lit” on hover */
-.kpi:hover .value,
-.kpi:focus-visible .value{
-  text-shadow: 0 0 12px rgba(241,210,106,.22), 0 0 28px rgba(212,175,55,.16);
+.kpi:hover::after, .kpi:focus-visible::after{ opacity:1; }
+.kpi:hover .value, .kpi:focus-visible .value{
+  text-shadow:0 0 12px rgba(241,210,106,.22), 0 0 28px rgba(212,175,55,.16);
 }
-.kpi:hover .icon,
-.kpi:focus-visible .icon{
-  box-shadow:
-    inset 0 0 0 2px rgba(212,175,55,.28),
-    0 6px 18px rgba(212,175,55,.14);
+.kpi:hover .icon, .kpi:focus-visible .icon{
+  box-shadow: inset 0 0 0 2px rgba(212,175,55,.28), 0 6px 18px rgba(212,175,55,.14);
 }
-
-/* Optional: always-on glow for featured stats */
 .kpi.is-featured{
   border-color: rgba(212,175,55,.45);
   background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
-  box-shadow:
-    inset 0 0 0 1px var(--gold-soft),
-    0 0 22px var(--gold-soft),
-    0 0 56px rgba(212,175,55,.12);
+  box-shadow: inset 0 0 0 1px var(--gold-soft), 0 0 22px var(--gold-soft), 0 0 56px rgba(212,175,55,.12);
 }
 .kpi.is-featured::after{ opacity:1; }
-
-/* Respect reduced motion */
 @media (prefers-reduced-motion: reduce){
-  .kpi,
-  .kpi::after{ transition:none; }
-  .kpi:hover,
-  .kpi:focus-visible{ transform:none; }
+  .kpi, .kpi::after{ transition:none; }
+  .kpi:hover, .kpi:focus-visible{ transform:none; }
 }
-/* ================= MOBILE FIXES ================= */
-/* Replace your old 900px block with this */
-@media (max-width: 900px){
-  /* Layout */
-  .wrap{ padding:18px; background: transparent !important;}
-  .hero{ --hero-bleed: 12vh; --hero-offset: 10vh; }
-  .hero::before{
-    background-image: linear-gradient(180deg, rgba(7,11,20,.62), rgba(7,11,20,.74)), var(--hero);
-    background-position: center 30%;
-  }
-  .wrap.hero{ padding-bottom: calc(10vh + var(--hero-bleed)); }
+
+/* ================ 7) FAQ ================================ */
+.faq{ max-width:900px; }
+#faq details{
+  position:relative; border-radius:14px;
+  background: linear-gradient(180deg, rgba(255,255,255,.02), rgba(255,255,255,.01));
+  border:1px solid var(--faq-border); margin:10px 0; overflow:clip;
+  transition: border-color .25s ease, box-shadow .25s ease, background .25s ease;
+}
+#faq details:hover, #faq details[open]{
+  border-color: rgba(212,175,55,.45);
+  background: linear-gradient(180deg, rgba(241,210,106,.06), rgba(241,210,106,.02));
+  box-shadow: inset 0 0 0 1px var(--gold-soft), 0 0 22px var(--gold-soft), 0 0 56px rgba(212,175,55,.12);
+}
+#faq details::after{
+  content:""; position:absolute; inset:-2px; border-radius:inherit;
+  background:
+    radial-gradient(120% 70% at 50% -10%, var(--gold-glow), transparent 60%),
+    radial-gradient(80% 60% at 50% 120%, rgba(212,175,55,.18), transparent 60%);
+  filter: blur(10px); opacity:0; pointer-events:none; transition:opacity .25s ease;
+}
+#faq details:hover::after, #faq details[open]::after{ opacity:1; }
+#faq summary{
+  list-style:none; cursor:pointer;
+  padding:14px 44px 14px 16px; position:relative; outline:none;
+  display:flex; align-items:center; justify-content:space-between; font-weight:600;
+}
+#faq summary::-webkit-details-marker{ display:none; }
+#faq summary > span[aria-hidden]{
+  position:absolute; right:14px; top:50%; transform:translateY(-50%);
+  transition: transform .28s ease, opacity .28s ease, color .25s ease; font-weight:900; opacity:.9;
+}
+#faq details[open] summary > span[aria-hidden]{ transform:translateY(-50%) rotate(0deg); opacity:1; color:var(--primary-2); }
+#faq .faq-body{
+  padding:0 18px; height:0; overflow:hidden;
+  transition: height .32s ease, opacity .28s ease, padding-top .2s ease, padding-bottom .2s ease;
+}
+#faq details:not([open]) .faq-body{ opacity:0; }
+#faq details[open] .faq-body{ padding:12px 18px 16px; }
+#faq .faq-body > :first-child{ margin-top:0; }
+#faq .faq-body > :last-child{ margin-bottom:0; }
+#faq .faq-body ul{ padding-left:1.15rem; margin:8px 0 0; }
+#faq .faq-body li{ margin:6px 0; }
+#faq details[open] summary{ box-shadow: inset 0 -1px 0 rgba(255,255,255,.08); }
+
+/* Ripple for summary */
+#faq summary.pulse::before{
+  content:""; position:absolute;
+  left: calc(var(--mx, .5) * 100%); top: calc(var(--my, .5) * 100%);
+  transform: translate(-50%,-50%) scale(.4);
+  width:20px; height:20px; border-radius:999px;
+  background: radial-gradient(circle at center, var(--faq-gold), rgba(0,0,0,0) 60%);
+  filter: blur(6px); animation: faq-pulse .45s ease-out forwards; pointer-events:none;
+}
+@keyframes faq-pulse{ to{ opacity:0; transform: translate(-50%,-50%) scale(2.6); } }
+@media (prefers-reduced-motion: reduce){
+  #faq summary.pulse::before{ animation:none; display:none; }
+  #faq .faq-body{ transition:none !important; }
+}
+
+/* ================ 8) FOOTER ============================= */
+footer{
+  border-top:1px solid var(--border); padding:24px 0;
+  color:var(--muted); font-size:14px;
+}
+.foot-grid{ display:flex; flex-direction:column; align-items:center; justify-content:center; gap:8px; text-align:center; }
+.foot-links{ margin-top:4px; }
+.foot-links.spaced{ display:flex; gap:12px; flex-wrap:wrap; justify-content:center; }
+footer .foot-grid > div .muted:first-of-type { color:#4b5563; }
+footer .foot-grid > div .muted:nth-of-type(2){ color:#374151; }
+footer .muted{ --tw-text-opacity:1; color: rgb(55 65 81 / var(--tw-text-opacity,1)); }
+
+/* ================ 9) UTILITIES ========================== */
+.grid{ display:grid; gap:16px; }
+.muted{ color:var(--muted); }
+.center{ text-align:center; }
+
+/* ================ 10) REVEAL EFFECT ===================== */
+.reveal-lines{
+  opacity:0; transform:translateY(14px); filter:blur(6px);
+  transition:
+    opacity 1.3s cubic-bezier(.22,.61,.21,.99),
+    transform 1.3s cubic-bezier(.22,.61,.21,.99),
+    filter   1.3s cubic-bezier(.22,.61,.21,.99);
+  will-change: opacity, transform, filter;
+}
+.reveal-lines.is-visible{ opacity:1; transform:none; filter:none; }
+.hero-content{ --reveal-delay:180ms; --reveal-stagger:300ms; }
+.hero-content .reveal-lines{ transition-delay: calc(var(--reveal-delay,0ms) + var(--reveal-stagger,240ms) * var(--i,0)); }
+@media (prefers-reduced-motion: reduce){
+  .reveal-lines{ transition:none !important; }
+  .reveal-lines, .reveal-lines.is-visible{ opacity:1 !important; transform:none !important; filter:none !important; }
+}
+noscript .reveal-lines{ opacity:1; transform:none; filter:none; }
+
+/* ================ 11) MEDIA QUERIES ===================== */
+@media (max-width:900px){
+  .wrap{ padding:18px; background:transparent !important; }
 
   /* Hero */
-  .hero-grid{ grid-template-columns:1fr; }
+  .hero{ --hero-bleed:12vh; --hero-offset:10vh; }
+  .hero::before{
+    background-image: linear-gradient(180deg, rgba(7,11,20,.62), rgba(7,11,20,.74)), var(--hero);
+    background-position:center 30%;
+  }
+  .wrap.hero{ padding-bottom: calc(10vh + var(--hero-bleed)); }
   .hero--center .hero-content{ gap: clamp(14px, 2vh, 26px); }
   .hero-title{ font-size: clamp(42px, 10.5vw, 96px); }
   .hero-subtitle--xl{ font-size: clamp(20px, 3.5vw, 26px); }
   .hero-subtitle--lg{ font-size: clamp(18px, 3.2vw, 22px); }
   .hero-subtitle--md{ font-size: clamp(16px, 3vw, 20px); }
   .hero-subtitle + .hero-subtitle{ margin-top: clamp(6px, 1.2vh, 12px); }
-
-  /* CTA button fills width nicely in hero */
   .hero .btn.btn-lg{ width:50%; max-width:520px; }
 
   /* Sections */
-  .section{ padding:44px 0; margin-top: 10vh; }
-  .section h2{ font-size: 24px; }
+  .section{ padding:44px 0; margin-top:10vh; }
+  .section h2{ font-size:24px; }
 
   /* Offer */
-  .offer-hero{
-    grid-template-columns:1fr;
-    gap:18px;
-  }
-  /* Show text first, image second (swap if you prefer) */
-  .offer-media{ order:2; }
-  .offer-figure{
-    margin-inline:auto;
-    max-width:380px;
-  }
-  .offer-panel{ padding:16px; border-radius: 22px; }
+  .offer-figure{ margin-inline:auto; max-width:380px; }
   .price-box{ margin:16px auto; padding:18px; }
 
-  /* KPI grid */
+  /* KPI */
   .kpis-grid{ grid-template-columns:repeat(2,1fr); gap:16px; }
   .kpi{ padding:18px; }
 
   /* FAQ */
   #faq summary{ padding:16px 44px 16px 18px; }
-  #faq .faq-body{ padding: 0 18px; }
-  #faq details[open] .faq-body{ padding: 12px 18px 16px; }
+  #faq .faq-body{ padding:0 18px; }
+  #faq details[open] .faq-body{ padding:12px 18px 16px; }
 
-  /* Footer */
-  .title{ font-size:32px; }
-
-  /* Subtle gold intensity reduction on small screens */
-  :root{
-    --gold-intensity: .16;
-    --gold-a1: .12;
-    --gold-a2: .03;
-  }
+  /* Slightly softer gold on small screens */
+  :root{ --gold-intensity:.16; --gold-a1:.12; --gold-a2:.03; }
 }
 
-/* Narrow phones — hero text boost */
-/* Narrow phones — enhanced hero presence */
-@media (max-width: 600px){
+@media (max-width:600px){
   .wrap{ padding:16px; }
 
-  /* HERO section */
+  /* Hero presence */
   .hero{
-    --hero-bleed: 14vh; /* was 10vh — extend image lower */
-    --hero-offset: 8vh;
-    min-height: 96vh; /* make hero taller on mobile */
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
+    --hero-bleed:14vh; --hero-offset:8vh;
+    min-height:96vh; display:flex; align-items:center; justify-content:center; text-align:center;
   }
-
   .hero::before{
-    background-image: linear-gradient(180deg, rgba(7,11,20,.65), rgba(7,11,20,.85)), var(--hero);
-    background-size: cover;
-    background-position: center 40%; /* lower image a bit */
+    background-image: linear-gradient(180deg, rgba(7,11,20,.68), rgba(7,11,20,.88)), var(--hero);
+    background-size: cover; background-position: center 40%;
   }
 
   .hero-content{
-    gap: clamp(18px, 3.5vh, 32px);
-    padding: 0 6vw;
+    /* a touch more overall spacing */
+    gap: clamp(22px, 4vh, 36px);
+    padding: 0 7vw;
   }
 
   .hero-title{
-    font-size: clamp(44px, 14vw, 82px);
+    font-size: clamp(48px, 16vw, 82px);
     line-height: 1.1;
   }
 
+  /* Paragraphs: slightly bigger + clearer hierarchy */
+  .hero-subtitle{ margin: 0; }
+
   .hero-subtitle--xl{
-    font-size: clamp(22px, 5vw, 28px);
-    line-height: 1.3;
+    font-size: clamp(24px, 5.8vw, 30px);  /* was 22–28 */
+    line-height: 1.32;
+    font-weight: 800;                      /* bring it “in front” */
+    text-shadow: 0 1px 2px rgba(0,0,0,.35);
   }
 
   .hero-subtitle--lg{
-    font-size: clamp(18px, 4.8vw, 24px);
-    line-height: 1.4;
+    font-size: clamp(20px, 5.2vw, 26px);   /* was 18–24 */
+    line-height: 1.42;
+    font-weight: 700;
+    text-shadow: 0 1px 2px rgba(0,0,0,.3);
   }
 
   .hero-subtitle--md{
-    font-size: clamp(16px, 4.2vw, 20px);
-    line-height: 1.45;
+    font-size: clamp(18px, 4.8vw, 22px);   /* was 16–20 */
+    line-height: 1.48;
+    font-weight: 600;
+    text-shadow: 0 1px 2px rgba(0,0,0,.25);
   }
 
-  .hero .btn.btn-lg{
-    padding:16px 24px;
-    font-size:16px;
-    width:81%;
-    max-width:460px;
+  /* Extra spacing between paragraphs (without affecting the title) */
+  .hero-subtitle + .hero-subtitle{
+    margin-top: clamp(12px, 4vh, 24px);
   }
+
+  /* CTA button */
+  .hero .btn.btn-lg{
+    padding: 16px 24px;
+    font-size: 16px;
+    width: 86%;
+    max-width: 480px;
+  }
+}
 
   /* Offer visuals */
   .offer-figure{ max-width:320px; }
-  .offer-media .badge-off{ padding:8px 12px; font-size:11px; }
+  .btn-ord{ width:100%; text-align:center; }
 
   /* KPI grid */
   .kpis-grid{ grid-template-columns:1fr; gap:14px; }
@@ -841,9 +644,249 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
   /* FAQ tap comfort */
   #faq summary{ padding:16px 42px 16px 16px; }
   #faq summary > span[aria-hidden]{ right:12px; }
+
+
+/* 1) Нема стаклен/картич позадинен панел */
+.offer-card-v2{ 
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+  max-width: unset !important;
 }
 
+/* 2) Figure станува главен носач — центрирана, адаптивна ширина */
+.offer-figure.offer-figure--solo{
+  margin: 0 auto;
+  max-width: min(860px, 100%);
+  width: 100%;
+  aspect-ratio: 4 / 5;           /* по-компактен кадар; по желба 5/7, 3/4 */
+  border-radius: var(--radius);
+  position: relative;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,.06);
+  background: #0f1320;
+  box-shadow: 0 20px 60px rgba(0,0,0,.45);
+  z-index: 0;                     /* база за слоеви */
+}
 
+.offer-figure--solo img{
+  position: absolute; inset: 0;
+  width: 100%; height: 100%;
+  object-fit: cover; object-position: center;
+  filter: saturate(1.05);
+}
+
+/* 3) Scrims за читливост (под overlays) */
+.offer-figure--solo::after{
+  content:""; position:absolute; left:0; right:0; bottom:0; height:50%;
+  background: linear-gradient(180deg, rgba(6,8,14,0) 0%,
+                                      rgba(6,8,14,.70) 35%,
+                                      rgba(6,8,14,.92) 72%,
+                                      rgba(6,8,14,.97) 100%);
+  z-index: 1; pointer-events:none;
+}
+.offer-figure--solo::before{
+  content:""; position:absolute; left:0; right:0; top:0; height:26%;
+  background: linear-gradient(180deg, rgba(6,8,14,.55), rgba(6,8,14,0));
+  z-index: 1; pointer-events:none;
+}
+
+/* 4) Overlays над сликата */
+.offer-top{
+  position:absolute; top:16px; left:16px; right:16px;
+  z-index: 3;
+  display:flex; align-items:center; gap:12px;
+  padding:12px 14px;
+  background: rgba(12,14,20,.55);
+  border:1px solid rgba(255,255,255,.10);
+  border-radius:14px;
+  backdrop-filter: blur(2px); -webkit-backdrop-filter: blur(2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,.35);
+}
+.offer-top .title-future{
+  margin:0; font-size: clamp(14px, 1.4vw, 18px); letter-spacing:.6px;
+  background: linear-gradient(180deg, #fff, rgba(var(--text-rgb), .86));
+  -webkit-background-clip:text; background-clip:text; color:transparent;
+  text-shadow: 0 1px 0 rgba(0,0,0,.35);
+}
+.offer-top .holo-badge{
+  margin-left:auto; font-size:12px; padding:6px 10px;
+  background: linear-gradient(120deg, var(--primary-2), var(--primary) 60%, #cfb060);
+  color:#0b0d12; border:1px solid rgba(0,0,0,.28);
+  border-radius:999px; box-shadow: 0 8px 18px rgba(212,175,55,.32);
+}
+
+/* Долен појас */
+.offer-bottom{
+  position:absolute; left:0; right:0; bottom:0;
+  z-index: 3;
+  display:flex; align-items:center; gap:16px;
+  padding:18px 18px 20px;
+  background: linear-gradient(180deg, transparent, rgba(6,8,14,.88) 45%, rgba(6,8,14,.96));
+  border-top:1px solid rgba(255,255,255,.08);
+}
+.price-left{ display:grid; gap:6px }
+.price-row{ display:flex; align-items:center; gap:12px; flex-wrap:wrap; }
+.og{ color:#98a2b3; text-decoration:line-through; opacity:.95; }
+.big-glow{
+  font-size: clamp(28px, 5vw, 40px);
+  font-weight:900; letter-spacing:.6px; color:#fff;
+  text-shadow: 0 2px 22px rgba(0,0,0,.55), 0 0 28px rgba(241,210,106,.25);
+}
+.subt-future{ margin:0; color:var(--muted); }
+
+.btn-ord{
+  margin-left:auto; flex:0 0 auto;
+  padding:12px 18px; border-radius:12px; font-weight:900;
+  border:1px solid rgba(255,255,255,.18);
+  box-shadow:0 10px 24px rgba(212,175,55,.35);
+  transition: transform .12s ease, box-shadow .2s ease, filter .2s ease;
+}
+.btn-ord:hover{ transform: translateY(-1px); filter: brightness(1.04); }
+.btn-ord:active{ transform: translateY(0) scale(.98); }
+
+/* 5) Отстрани стариот медиум/панел ако останал во DOM */
+.offer-media .badge-off{ display:none !important; }
+.offer-panel{ display:none !important; }
+.offer-card-v2:empty{ display:none; }
+
+/* 6) Мобилно */
+@media (max-width:680px){
+  .offer-figure.offer-figure--solo{ max-width: 340px; aspect-ratio: 3 / 4; }
+  .offer-figure--solo::after{ height:58%; }
+  .offer-top{ top:10px; left:10px; right:10px; padding:10px 12px; border-radius:12px; }
+  .offer-bottom{
+    flex-direction:column; align-items:stretch; gap:12px; padding:14px;
+  }
+  .btn-ord{ width:100%; text-align:center; }
+}
+/* ==== REMOVE GRID BACKGROUND BEHIND THE OFFER ==== */
+#offer-1,
+#offer-1 .offer-hero,
+#offer-1 .offer-hero--v2{
+  background: none !important;     /* нема grid/радијални позадини */
+}
+
+/* Безбедносно: ако негде останал grid од псевдо-елементи */
+#offer-1 .offer-hero--v2::before,
+#offer-1 .offer-hero--v2::after{
+  content: none !important;
+}
+
+/* Само сликата да е „главната класа“ како што договоривме */
+#offer-1 .offer-card-v2{
+  background: none !important;
+  border: 0 !important;
+  box-shadow: none !important;
+  backdrop-filter: none !important;
+  padding: 0 !important;
+}
+/* ================== OFFER-1 ULTRA-COMPACT ================== */
+#offer-1{
+  --offer-max: 600px;              /* беше 740 → уште потесно */
+  --offer-ratio: 4/5;              /* пониска слика од 3/4 (помал волумен) */
+
+  --offer-top-inset: 10px;
+  --offer-top-pad: 8px 10px;
+  --offer-top-radius: 10px;
+
+  --offer-title-size: clamp(12px, 1vw, 14px);
+  --offer-badge-size: 11px;
+
+  --offer-bottom-pad: 10px;
+  --offer-price-size: clamp(20px, 3.6vw, 28px);
+  --offer-note-size: 11.5px;
+
+  --offer-btn-pad: 8px 12px;
+  --offer-btn-radius: 10px;
+
+  --offer-shadow: 0 10px 28px rgba(0,0,0,.34);
+  --offer-scrim-height: 42%;       /* малку пократко затемнување */
+}
+
+/* примената (истите селектори за да прегази) */
+#offer-1 .offer-figure.offer-figure--solo{
+  max-width: min(var(--offer-max), 100%) !important;
+  aspect-ratio: var(--offer-ratio) !important;
+  box-shadow: var(--offer-shadow) !important;
+}
+#offer-1 .offer-top{
+  top: var(--offer-top-inset) !important;
+  left: var(--offer-top-inset) !important;
+  right: var(--offer-top-inset) !important;
+  padding: var(--offer-top-pad) !important;
+  border-radius: var(--offer-top-radius) !important;
+}
+#offer-1 .offer-top .title-future{ font-size: var(--offer-title-size) !important; }
+#offer-1 .offer-top .holo-badge{
+  font-size: var(--offer-badge-size) !important;
+  padding: 5px 9px !important;
+}
+#offer-1 .offer-bottom{ padding: var(--offer-bottom-pad) !important; }
+#offer-1 .big-glow{ font-size: var(--offer-price-size) !important; }
+#offer-1 .subt-future{ font-size: var(--offer-note-size) !important; }
+#offer-1 .btn-ord{
+  padding: var(--offer-btn-pad) !important;
+  border-radius: var(--offer-btn-radius) !important;
+}
+
+/* и scrim-от малку покус за да делува помало */
+#offer-1 .offer-figure.offer-figure--solo::after{
+  height: var(--offer-scrim-height) !important;
+}
+
+/* ======= микро за мобилно (уште помало) ======= */
+@media (max-width: 680px){
+  #offer-1{
+    --offer-max: 300px;
+    --offer-ratio: 3/4;
+    --offer-top-inset: 8px;
+    --offer-top-pad: 7px 9px;
+    --offer-title-size: 13px;
+    --offer-badge-size: 10.5px;
+    --offer-bottom-pad: 10px;
+    --offer-price-size: clamp(18px, 6vw, 24px);
+    --offer-btn-pad: 9px 12px;
+    --offer-scrim-height: 48%;
+  }
+  #offer-1 .btn-ord{ width:100%; text-align:center; }
+}
+
+/* OFFER-1: ист дизајн, само поголем текст во горниот слој */
+#offer-1 .offer-top{
+  top: 12px; left: 12px; right: 12px;      /* не го менуваме изгледот, само малку простор */
+  padding: 12px 14px;
+  border-radius: 12px;
+}
+
+/* ПОГОЛЕМ НАСЛОВ */
+#offer-1 .offer-top .title-future{
+  font-size: clamp(18px, 2.2vw, 24px);     /* беше помало → сега попрочитливо */
+  letter-spacing: .7px;
+  font-weight: 900;
+}
+
+/* МАЛКУ ПОГОЛЕМ BADGE (по желба) */
+#offer-1 .offer-top .holo-badge{
+  font-size: 13.5px;
+  padding: 7px 12px;
+}
+
+/* Мобилно: уште читливо, без да „вири“ */
+@media (max-width: 680px){
+  #offer-1 .offer-top{
+    top: 10px; left: 10px; right: 10px;
+    padding: 10px 12px;
+  }
+  #offer-1 .offer-top .title-future{
+    font-size: 18px;                    /* фиксна, убава за телефони */
+  }
+  #offer-1 .offer-top .holo-badge{
+    font-size: 12px; padding: 6px 10px;
+  }
+}
 
 </style>
 
@@ -876,86 +919,67 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
   </div>
 </main>
 
+<section id="offer-1" class="wrap section">
+  <div class="offer-hero offer-hero--v2">
 
-  <section id="offer-1" class="wrap section">
-    <div class="offer-hero">
-      <div class="offer-media">
-        <div class="badge-off">50% OFF!</div>
-        <figure class="offer-figure">
-  <!-- Set your file later -->
-      <img src="main.jpg"
-       alt="Offer visual"
-       width="817" height="1228"
-       loading="lazy" />
-        </figure>
-      </div>
-      <div class="offer-panel">
-  <div class="offer-head">
-    <h2 class="title title-future">STANDARD PACKAGE</h2>
-    <span class="holo-badge">50% OFF</span>
+    <!-- САМО СЛИКА + OVERLAYS -->
+    <figure class="offer-figure offer-figure--solo">
+      <img src="main.jpg" alt="Offer visual" width="817" height="1228" loading="lazy"/>
+
+      <!-- горен бар -->
+      <header class="offer-top">
+        <h2 class="title title-future">STANDARD PACKAGE</h2>
+        <span class="holo-badge"><b>50% OFF</b></span>
+      </header>
+
+      <!-- долен појас -->
+      <footer class="offer-bottom">
+        <div class="price-left">
+          <div class="price-row">
+            <div class="og">$1,999</div>
+            <span class="pill-ghost">Limited Time</span>
+          </div>
+          <div class="big big-glow">$999</div>
+          <p class="subt subt-future">Standard Access — Essentials, clarity, momentum.</p>
+        </div>
+        <a class="btn btn-gold btn-shine btn-ord" href="#buy" aria-label="Buy now">
+          <span class="btn-label">Buy Now</span>
+        </a>
+      </footer>
+    </figure>
   </div>
+</section>
 
-  <p class="lead lead-future">Step into a better tomorrow—begin your success story today.</p>
+<section id="offer-1" class="wrap section">
+  <div class="offer-hero offer-hero--v2">
 
-  <div class="price-box price-box-future">
-    <div class="price-row">
-      <div class="og">$1,999</div>
-      <span class="pill-ghost">Limited Time</span>
-    </div>
+    <!-- САМО СЛИКА + OVERLAYS -->
+    <figure class="offer-figure offer-figure--solo">
+      <img src="premiumpackage.png" alt="Offer visual" width="817" height="1228" loading="lazy"/>
 
-    <div class="big big-glow">$999</div>
-    <p class="subt subt-future">Economy processing with standard delivery</p>
+      <!-- горен бар -->
+      <header class="offer-top">
+        <h2 class="title title-future">PREMIUM PACKAGE</h2>
+        <span class="holo-badge"><b>50% OFF</b></span>
+      </header>
 
-
-    <a class="btn btn-gold btn-block btn-shine" href="#buy" aria-label="Buy now">
-      <span class="btn-label">Order Now</span>
-    </a>
+      <!-- долен појас -->
+      <footer class="offer-bottom">
+        <div class="price-left">
+          <div class="price-row">
+            <div class="og">$1,999</div>
+            <span class="pill-ghost">Limited Time</span>
+          </div>
+          <div class="big big-glow">$2,999</div>
+          <p class="subt subt-future">Premium Access — Depth, priority, acceleration.y</p>
+        </div>
+        <a class="btn btn-gold btn-shine btn-ord" href="#buy" aria-label="Buy now">
+          <span class="btn-label">Buy Now</span>
+        </a>
+      </footer>
+    </figure>
   </div>
-</div>
-
-    </div>
-    
-  </section>
-
-
-  <section id="offer-1" class="wrap section">
-    <div class="offer-hero">
-      <div class="offer-media">
-        <div class="badge-off">BEST DEAL!</div>
-        <figure class="offer-figure">
-  <!-- Set your file later -->
-      <img src="premiumpackage.png"
-       alt="Offer visual"
-       width="817" height="1228"
-       loading="lazy" />
-        </figure>
-      </div>
-      <div class="offer-panel">
-  <div class="offer-head">
-    <h2 class="title title-future">PREMIUM PACKAGE</h2>
-    <span class="holo-badge">50% OFF</span>
-  </div>
-
-  <p class="lead lead-future">Step into a better tomorrow—begin your success story today.</p>
-
-  <div class="price-box price-box-future">
-    <div class="price-row">
-      <div class="og">$5,999</div>
-      <span class="pill-ghost">Limited Time</span>
-    </div>
-
-    <div class="big big-glow">$2,999</div>
-    <p class="subt subt-future">Priority processing and faster delivery</p>
-
-    <a class="btn btn-gold btn-block btn-shine" href="#buy" aria-label="Buy now">
-      <span class="btn-label">Order Now</span>
-    </a>
-  </div>
-</div>
-
-    </div>
-    
-  </section>
+</section>
 
   <!-- KPIs -->
   <section id="kpis" class="wrap section" data-sky="gold">
@@ -971,7 +995,7 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
             <path d="M14 21a6 6 0 0 1 8 0" opacity=".6"/>
           </svg>
         </div>
-        <div class="value gold">10,000+</div>
+        <div class="value gold">700,000+</div>
         <div class="label">Happy Customers</div>
       </div>
 
@@ -984,21 +1008,28 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
             <path d="M12 3v18" opacity=".5"/>
           </svg>
         </div>
-        <div class="value gold">$2.5M+</div>
+        <div class="value gold">$892.5M+</div>
         <div class="label">Total Savings Generated</div>
       </div>
 
       <!-- Success Rate -->
-      <div class="kpi">
-        <div class="icon" aria-hidden="true">
-          <svg viewBox="0 0 24 24" fill="none" stroke="#f1d26a" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9" stroke="#f1d26a"/>
-            <path d="M8.5 12.5l2.2 2.2 4.5-4.5"/>
-          </svg>
-        </div>
-        <div class="value gold">98%</div>
-        <div class="label">Success Rate</div>
-      </div>
+      <!-- Replace one of your KPI cards with this, or add as a new one -->
+<div class="kpi" id="kpi-orders-week">
+  <div class="icon" aria-hidden="true">
+    <!-- Minimal cart icon (inline SVG) -->
+    <svg viewBox="0 0 24 24" fill="none" stroke="#d4af37">
+      <path d="M6 6h15l-1.5 8.5a2 2 0 0 1-2 1.6H9.2a2 2 0 0 1-2-1.6L5 3H2" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="9.5" cy="20" r="1.6" />
+      <circle cx="17.5" cy="20" r="1.6" />
+    </svg>
+  </div>
+
+  <!-- Set your number here; keep data-count if you use the count-up script -->
+  <div class="value gold" data-count="1018">1,421</div>
+  <div class="label">Orders last week</div>
+  <div class="sub">+12% vs prior week</div>
+</div>
+
     </div>
   </section>
 
@@ -1033,35 +1064,21 @@ noscript .reveal-lines { opacity: 1; transform: none; filter: none; }
 
   <details>
     <summary>
-      How did NESARA turn into a conspiracy theory?
+      Who is this for?
       <span aria-hidden="true">➕</span>
     </summary>
     <div class="faq-body">
-      In the late 1990s and early 2000s, online communities promoted the idea that NESARA was secretly passed but suppressed by powerful interests. Shaini Goodwin (“Dove of Oneness”) became a prominent promoter, claiming:
-      <ul>
-        <li>NESARA was real but hidden</li>
-        <li>It would wipe out personal debts, end income tax, and redistribute wealth</li>
-        <li>“Dark forces” were blocking its implementation</li>
-      </ul>
-      These claims spread online and later intertwined with other narratives, including UFO and QAnon-adjacent themes.
+      People who want clear, practical steps for organizing finances, tracking progress, and learning prosperity-focused habits.
     </div>
   </details>
 
   <details>
     <summary>
-      What do believers say NESARA/GESARA will do?
+      Is this connected to any government or financial institution?
       <span aria-hidden="true">➕</span>
     </summary>
     <div class="faq-body">
-      Followers often claim the acts would:
-      <ul>
-        <li>Cancel all debts (personal, national, and global)</li>
-        <li>Eliminate income tax and introduce a flat or sales tax</li>
-        <li>Release suppressed technologies (e.g., “free energy”)</li>
-        <li>End wars and establish world peace</li>
-        <li>Distribute wealth more equally worldwide</li>
-        <li>Reveal hidden truths about extraterrestrials and government corruption</li>
-      </ul>
+      This is an independent, education-based initiative. We’re not affiliated with any government, bank, or official program.
     </div>
   </details>
 </section>
